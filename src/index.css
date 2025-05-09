@@ -1,68 +1,67 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --primary-100: #b2dfdb;
+  --primary-200: #80cbc4;
+  --primary-300: #4db6ac;
+  --primary-400: #26a69a;
+  --primary-500: #00897b; /* Base */
+  --primary-600: #00796b;
+  --primary-700: #00695c;
+  --primary-800: #004d40;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --secondary-100: #cfd8dc;
+  --secondary-200: #b0bec5;
+  --secondary-300: #90a4ae;
+  --secondary-400: #78909c;
+  --secondary-500: #607d8b; /* Base */
+  --secondary-600: #546e7a;
+  --secondary-700: #455a64;
+  --secondary-800: #37474f;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  --error-100: #f8d7da;
+  --error-200: #f1aeb5;
+  --error-300: #ea868f;
+  --error-400: #e35d6a;
+  --error-500: #dc3545; /* Base */
+  --error-600: #bb2d3b;
+  --error-700: #a71d2a;
+  --error-800: #7f1320;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+  --warn-100: #fff3cd;
+  --warn-200: #ffe69c;
+  --warn-300: #ffd666;
+  --warn-400: #ffc107;
+  --warn-500: #ffae00; /* Base */
+  --warn-600: #e69500;
+  --warn-700: #cc7a00;
+  --warn-800: #b36200;
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd; /* Base neutral gray */
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+  --disabled-color: var(--gray-200);
+  --border-color: var(--gray-400);
+  --border-color-dark: var(--gray-500);
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+  --border-radius-xs: 2px;
+  --border-radius-sm: 4px;
+  --border-radius: 6px;
+  --border-radius-lg: 8px;
+  --border-radius-xl: 12px;
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  --font-size-sm: 14px;
+  --font-size-xs: 12px;
+  --font-size: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 22px;
+
+  --font-weight: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
