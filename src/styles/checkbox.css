@@ -16,7 +16,6 @@
   background: var(--gray-400);
   border-radius: var(--border-radius-sm);
   transform: translate3d(0, 0, 0);
-  cursor: pointer;
   transition: all 0.3s ease;
   touch-action: manipulation;
 }
@@ -32,14 +31,17 @@
   -webkit-perspective: var(--checkbox-dim-lg);
   perspective: var(--checkbox-dim-lg);
 }
-.mq-checkbox-label:not(:disabled) {
+.mq-checkbox-wrapper:has(.mq-checkbox-input:not(:disabled)) .mq-checkbox {
   cursor: pointer;
 }
-.mq-checkbox-label:not(:disabled):hover ~ .mq-checkbox {
+.mq-checkbox-wrapper:has(.mq-checkbox-input:not(:disabled)) .mq-checkbox-label {
+  cursor: pointer;
+}
+.mq-checkbox-label ~ .mq-checkbox-input:not(:disabled):hover ~ .mq-checkbox {
   border-color: var(--primary-500);
   box-shadow: var(--input-focus-highlight);
 }
-.mq-checkbox-wrapper .mq-checkbox:not(:disabled):hover {
+.mq-checkbox-wrapper .mq-checkbox-input:not(:disabled) ~ .mq-checkbox:hover {
   border-color: var(--primary-500);
   box-shadow: var(--input-focus-highlight);
 }
@@ -134,10 +136,20 @@
 .mq-cbx-small .mq-checkbox-label {
   font-size: var(--font-size-xs);
   user-select: none;
-  cursor: pointer;
   touch-action: manipulation;
 }
 
 .mq-error .mq-checkbox-label {
   color: var(--error-500);
+}
+.mq-checkbox-wrapper:has(.mq-checkbox-input:disabled) .mq-checkbox-label {
+  color: var(--disabled-text-color);
+}
+.mq-checkbox-wrapper:has(.mq-checkbox-input:disabled) .back {
+  transform: rotateY(180deg);
+  background: var(--disable-checkbox-color);
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 0 1.5px var(--disable-checkbox-color);
+  cursor: not-allowed;
 }

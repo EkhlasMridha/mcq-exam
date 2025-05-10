@@ -30,7 +30,12 @@ export const Checkbox = ({
           {label}
         </label>
       )}
-      <input id={uniqueId} type="checkbox" {...restProps} />
+      <input
+        id={uniqueId}
+        className="mq-checkbox-input"
+        type="checkbox"
+        {...restProps}
+      />
       <label className="mq-checkbox" htmlFor={uniqueId}>
         <CheckboxFlip />
       </label>

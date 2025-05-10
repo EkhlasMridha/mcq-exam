@@ -55,6 +55,7 @@
   --gray-base-contrast: #242424;
 
   --disabled-bg-color: var(--gray-100);
+  --disable-checkbox-color: var(--gray-600);
   --disabled-text-color: var(--gray-700);
   --border-color: var(--gray-500);
   --border-color-dark: var(--gray-600);

@@ -8,8 +8,8 @@ function App() {
     <div
       style={{ padding: 18, display: "flex", alignItems: "center", gap: 12 }}
     >
-      {/* <Checkbox variantSize={size} /> */}
-      <RadioInput />
+      <Checkbox variantSize={size} label="My checkbox" />
+      {/* <RadioInput disabled checked /> */}
       {/* <RadioGroup
         variantSize={size}
         orientation="row"
