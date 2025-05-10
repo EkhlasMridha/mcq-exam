@@ -85,4 +85,8 @@
   --height-sm: 24px;
   --height-md: 30px;
   --height-lg: 36px;
+
+  --checkbox-dim-sm: 12px;
+  --checkbox-dim-md: 18px;
+  --checkbox-dim-lg: 24px;
 }

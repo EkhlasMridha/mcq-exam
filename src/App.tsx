@@ -1,13 +1,11 @@
 import { Button } from "components/button";
 import "./App.css";
-import { Input } from "components/input";
+import { Checkbox } from "components/checkbox";
 
 function App() {
   return (
     <div style={{ padding: 18 }}>
-      <Button shape="circle" size="large">
-        C
-      </Button>
+      <Checkbox variantSize="medium" />
     </div>
   );
 }
