@@ -1,5 +1,4 @@
 import { RadioInput } from "components/radio-input";
-import "./App.css";
 import { Checkbox } from "components/checkbox";
 import type { ElementSizeType } from "components/button/types";
 
