@@ -1,0 +1,43 @@
+.mq-input {
+  box-sizing: border-box;
+  padding: 4px 10px;
+  display: inline-block;
+  border-radius: var(--border-radius-sm);
+  line-height: 1.5;
+  border: 1px solid var(--border-color);
+  transition: var(--input-focus-transition);
+}
+
+.mq-input-small {
+  line-height: 1.3;
+}
+.mq-input-medium {
+  line-height: 1.6;
+}
+.mq-input-large {
+  line-height: 2;
+}
+
+.mq-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: var(--input-focus-highlight);
+  background-color: #ffffff;
+  transition: var(--input-focus-transition);
+}
+.mq-input.error {
+  border-color: var(--error-500);
+}
+.mq-input.error:focus {
+  box-shadow: var(--input-focus-highlight-error);
+}
+
+.mq-input::before,
+.mq-input::after {
+  box-sizing: border-box;
+}
+
+.mq-input:disabled {
+  background-color: var(--disabled-bg-color);
+  color: var(--disabled-text-color);
+}
