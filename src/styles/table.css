@@ -1,0 +1,94 @@
+.mq-table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.mq-table * {
+  position: relative;
+}
+.mq-table td,
+.mq-table th {
+  padding-left: 8px;
+}
+.mq-table thead tr {
+  height: 60px;
+  background: #ffed86;
+  font-size: 16px;
+}
+.mq-table tbody tr {
+  height: 48px;
+  border-bottom: 1px solid #e3f1d5;
+}
+.mq-table tbody tr:last-child {
+  border: 0;
+}
+.mq-table td,
+.mq-table th {
+  text-align: left;
+}
+.mq-table td.l,
+.mq-table th.l {
+  text-align: right;
+}
+.mq-table td.c,
+.mq-table th.c {
+  text-align: center;
+}
+.mq-table td.r,
+.mq-table th.r {
+  text-align: center;
+}
+
+@media screen and (max-width: 35.5em) {
+  .mq-table {
+    display: block;
+  }
+  .mq-table > *,
+  .mq-table tr,
+  .mq-table td,
+  .mq-table th {
+    display: block;
+  }
+  .mq-table thead {
+    display: none;
+  }
+  .mq-table tbody tr {
+    height: auto;
+    padding: 8px 0;
+  }
+  .mq-table tbody tr td {
+    padding-left: 45%;
+    margin-bottom: 12px;
+  }
+  .mq-table tbody tr td:last-child {
+    margin-bottom: 0;
+  }
+  .mq-table tbody tr td:before {
+    position: absolute;
+    font-weight: 700;
+    width: 40%;
+    left: 10px;
+    top: 0;
+  }
+  .mq-table tbody tr td:nth-child(1):before {
+    content: "Code";
+  }
+  .mq-table tbody tr td:nth-child(2):before {
+    content: "Stock";
+  }
+  .mq-table tbody tr td:nth-child(3):before {
+    content: "Cap";
+  }
+  .mq-table tbody tr td:nth-child(4):before {
+    content: "Inch";
+  }
+  .mq-table tbody tr td:nth-child(5):before {
+    content: "Box Type";
+  }
+}

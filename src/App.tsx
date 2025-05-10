@@ -1,11 +1,38 @@
 import type { ElementSizeType } from "components/button/types";
+import { Table } from "components/table";
 
 function App() {
   const size: ElementSizeType = "medium";
+  const dataList = [
+    {
+      name: "Sam",
+      age: 22,
+    },
+    {
+      name: "Shamsul",
+      age: 44,
+    },
+  ];
   return (
     <div
       style={{ padding: 18, display: "flex", alignItems: "center", gap: 12 }}
     >
+      <Table
+        dataSource={dataList}
+        onRowClick={(params) => {
+          console.log(params.row);
+        }}
+        columns={[
+          {
+            heading: "Name",
+            name: "name",
+          },
+          {
+            heading: "Age",
+            name: "age",
+          },
+        ]}
+      />
       {/* <CheckboxGroup
         value={["f", "s"]}
         items={[
