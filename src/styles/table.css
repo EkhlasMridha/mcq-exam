@@ -1,8 +1,8 @@
 .mq-table {
   border-spacing: 1;
   border-collapse: collapse;
-  background: white;
-  border-radius: 6px;
+  background: #ffffff;
+  border-radius: var(--border-radius-sm);
   overflow: hidden;
   max-width: 800px;
   width: 100%;
@@ -17,13 +17,14 @@
   padding-left: 8px;
 }
 .mq-table thead tr {
-  height: 60px;
-  background: #ffed86;
-  font-size: 16px;
+  height: 40px;
+  background: var(--secondary-100);
+  font-size: var(--font-size);
+  color: var(--primary-700);
 }
 .mq-table tbody tr {
-  height: 48px;
-  border-bottom: 1px solid #e3f1d5;
+  height: 38px;
+  border-bottom: 1px solid var(--secondary-200);
 }
 .mq-table tbody tr:last-child {
   border: 0;
