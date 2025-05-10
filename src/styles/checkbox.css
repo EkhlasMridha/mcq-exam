@@ -153,3 +153,12 @@
   box-shadow: 0 0 0 1.5px var(--disable-checkbox-color);
   cursor: not-allowed;
 }
+
+.mq-cbx-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+}
+.mq-cbx-group-col {
+  flex-direction: column;
+}

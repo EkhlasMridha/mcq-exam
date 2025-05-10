@@ -15,3 +15,19 @@ export interface CheckboxProps
   label?: string;
   labelStyle?: CSSProperties;
 }
+
+export interface CheckboxGroupItem {
+  label: string;
+  value: string;
+}
+export interface CheckboxGroupProps
+  extends Omit<
+    CheckboxProps,
+    "checked" | "label" | "labelStyle" | "isError" | "onChange"
+  > {
+  items?: CheckboxGroupItem[];
+  orientation?: "row" | "column";
+  itemGap?: number | string;
+  style?: CSSProperties;
+  onChange?: (value?: string[]) => void;
+}

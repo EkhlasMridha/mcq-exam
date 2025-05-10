@@ -3,7 +3,7 @@ import { RadioInput } from "./radio-input";
 import type { RadioGroupProps } from "./types";
 
 export const RadioGroup = ({
-  itemGap = 4,
+  itemGap = 14,
   items = [],
   orientation = "column",
   className,
