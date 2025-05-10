@@ -1,0 +1,73 @@
+.mq-radio-wrapper {
+  position: relative;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mq-radio-input[type="radio"] {
+  aspect-ratio: 1;
+  margin: 0;
+  background: radial-gradient(farthest-side, var(--primary-500) 94%, #0000) 50%/0
+    0 no-repeat content-box;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  font-size: inherit;
+  transition: 0.3s;
+  touch-action: manipulation;
+}
+
+.mq-radio-small .mq-radio-input[type="radio"] {
+  height: var(--radioinput-dim-sm);
+  padding: calc(var(--radioinput-dim-sm) / 8);
+  border: calc(var(--radioinput-dim-sm) / 8) solid #939393;
+  outline-offset: calc(var(--radioinput-dim-sm) / 10);
+}
+.mq-radio-medium .mq-radio-input[type="radio"] {
+  height: var(--radioinput-dim-md);
+  padding: calc(var(--radioinput-dim-md) / 8);
+  border: calc(var(--radioinput-dim-md) / 8) solid #939393;
+  outline-offset: calc(var(--radioinput-dim-md) / 10);
+}
+.mq-radio-large .mq-radio-input[type="radio"] {
+  height: var(--radioinput-dim-lg);
+  padding: calc(var(--radioinput-dim-lg) / 8);
+  border: calc(var(--radioinput-dim-lg) / 8) solid #939393;
+  outline-offset: calc(var(--radioinput-dim-lg) / 10);
+}
+
+.mq-radio-input[type="radio"]:checked {
+  border-color: var(--primary-500);
+  background-size: 100% 100%;
+}
+
+.mq-radio-input[type="radio"]:disabled {
+  background: linear-gradient(#939393 0 0) 50%/100% 20% no-repeat content-box;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media print {
+  .mq-radio-input[type="radio"] {
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+    background: none;
+  }
+}
+
+.mq-radio-label {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.mq-radio-small .mq-radio-label {
+  font-size: var(--font-size-xs);
+}
+
+.mq-radio-wrapper.mq-radio-small {
+  gap: 4px;
+}

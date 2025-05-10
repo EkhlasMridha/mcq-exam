@@ -18,6 +18,7 @@
   transform: translate3d(0, 0, 0);
   cursor: pointer;
   transition: all 0.3s ease;
+  touch-action: manipulation;
 }
 .mq-cbx-small .mq-checkbox {
   -webkit-perspective: var(--checkbox-dim-sm);
@@ -132,6 +133,9 @@
 
 .mq-cbx-small .mq-checkbox-label {
   font-size: var(--font-size-xs);
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .mq-error .mq-checkbox-label {

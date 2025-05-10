@@ -89,4 +89,8 @@
   --checkbox-dim-sm: 12px;
   --checkbox-dim-md: 18px;
   --checkbox-dim-lg: 24px;
+
+  --radioinput-dim-sm: 16px;
+  --radioinput-dim-md: 20px;
+  --radioinput-dim-lg: 25px;
 }

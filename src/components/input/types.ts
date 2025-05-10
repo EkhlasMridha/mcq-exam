@@ -1,3 +1,4 @@
+import type { ElementSizeType } from "components/button/types";
 import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 export interface InputProps
@@ -5,6 +6,6 @@ export interface InputProps
     DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
     "minLength"
   > {
-  variantSize?: "small" | "medium" | "large";
+  variantSize?: ElementSizeType;
   isError?: boolean;
 }

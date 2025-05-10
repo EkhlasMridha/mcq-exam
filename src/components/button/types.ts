@@ -6,7 +6,7 @@ export interface ButtonProps
     HTMLButtonElement
   > {
   color?: BtnColorType;
-  size?: BtnSizeType;
+  size?: ElementSizeType;
   variant?: BtnVariant;
   shape?: BtnShapeType;
   icon?: ReactNode;
@@ -14,6 +14,6 @@ export interface ButtonProps
 }
 
 export type BtnColorType = "primary" | "secondary" | "warn" | "error";
-export type BtnSizeType = "small" | "medium" | "large";
+export type ElementSizeType = "small" | "medium" | "large";
 export type BtnVariant = "solid" | "outline" | "ghost";
 export type BtnShapeType = "rounded" | "capsule" | "circle" | "square";
