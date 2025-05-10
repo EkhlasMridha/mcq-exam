@@ -1,5 +1,3 @@
-import { RadioGroup, RadioInput } from "components/radio-input";
-import { Checkbox, CheckboxGroup } from "components/checkbox";
 import type { ElementSizeType } from "components/button/types";
 
 function App() {
@@ -8,7 +6,7 @@ function App() {
     <div
       style={{ padding: 18, display: "flex", alignItems: "center", gap: 12 }}
     >
-      <CheckboxGroup
+      {/* <CheckboxGroup
         value={["f", "s"]}
         items={[
           {
@@ -28,7 +26,7 @@ function App() {
             value: "d",
           },
         ]}
-      />
+      /> */}
       {/* <Checkbox variantSize={size} label="My checkbox" /> */}
       {/* <RadioInput disabled checked /> */}
       {/* <RadioGroup

@@ -18,7 +18,7 @@
   box-sizing: border-box;
 }
 
-.mq-btn:active {
+.mq-btn:not(:disabled):active {
   transform: scale(0.97);
 }
 
@@ -118,4 +118,17 @@
   border-radius: 50%;
   padding: 0;
   flex-shrink: 0;
+}
+
+.mq-btn:disabled {
+  cursor: default;
+}
+
+.mq-btn:disabled::after {
+  pointer-events: none;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff69;
 }
