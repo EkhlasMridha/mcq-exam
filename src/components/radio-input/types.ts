@@ -10,7 +10,10 @@ export interface RadioItem {
 }
 
 export interface RadioGroupProps
-  extends Pick<RadioInputProps, "onChange" | "value" | "variantSize"> {
+  extends Pick<
+    RadioInputProps,
+    "onChange" | "value" | "variantSize" | "disabled"
+  > {
   className?: string;
   style?: CSSProperties;
   items?: RadioItem[];

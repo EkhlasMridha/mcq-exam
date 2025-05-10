@@ -9,7 +9,8 @@ function App() {
       style={{ padding: 18, display: "flex", alignItems: "center", gap: 12 }}
     >
       {/* <Checkbox variantSize={size} /> */}
-      <RadioGroup
+      <RadioInput />
+      {/* <RadioGroup
         variantSize={size}
         orientation="row"
         itemGap={12}
@@ -31,7 +32,7 @@ function App() {
             value: "d",
           },
         ]}
-      />
+      /> */}
     </div>
   );
 }

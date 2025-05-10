@@ -4,7 +4,13 @@ import type { CSSProperties } from "react";
 export interface CheckboxProps
   extends Pick<
     InputProps,
-    "className" | "checked" | "value" | "onChange" | "variantSize" | "isError"
+    | "className"
+    | "checked"
+    | "value"
+    | "onChange"
+    | "variantSize"
+    | "isError"
+    | "disabled"
   > {
   label?: string;
   labelStyle?: CSSProperties;

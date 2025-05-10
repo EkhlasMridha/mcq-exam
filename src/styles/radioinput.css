@@ -23,20 +23,29 @@
 .mq-radio-small .mq-radio-input[type="radio"] {
   height: var(--radioinput-dim-sm);
   padding: calc(var(--radioinput-dim-sm) / 8);
-  border: calc(var(--radioinput-dim-sm) / 8) solid #939393;
+  border: calc(var(--radioinput-dim-sm) / 8) solid;
   outline-offset: calc(var(--radioinput-dim-sm) / 10);
 }
+
 .mq-radio-medium .mq-radio-input[type="radio"] {
   height: var(--radioinput-dim-md);
   padding: calc(var(--radioinput-dim-md) / 8);
-  border: calc(var(--radioinput-dim-md) / 8) solid #939393;
+  border: calc(var(--radioinput-dim-md) / 8) solid;
   outline-offset: calc(var(--radioinput-dim-md) / 10);
 }
+
 .mq-radio-large .mq-radio-input[type="radio"] {
   height: var(--radioinput-dim-lg);
   padding: calc(var(--radioinput-dim-lg) / 8);
-  border: calc(var(--radioinput-dim-lg) / 8) solid #939393;
+  border: calc(var(--radioinput-dim-lg) / 8) solid;
   outline-offset: calc(var(--radioinput-dim-lg) / 10);
+}
+.mq-radio-wrapper .mq-radio-input[type="radio"] {
+  border-color: var(--gray-500);
+}
+.mq-radio-input[type="radio"]:not(:disabled):hover {
+  border-color: var(--primary-400);
+  box-shadow: var(--input-focus-highlight);
 }
 
 .mq-radio-input[type="radio"]:checked {
@@ -62,6 +71,10 @@
 .mq-radio-label {
   cursor: pointer;
   touch-action: manipulation;
+}
+.mq-radio-input:disabled ~ .mq-radio-label {
+  cursor: default;
+  color: var(--disabled-text-color);
 }
 
 .mq-radio-small .mq-radio-label {

@@ -11,6 +11,7 @@ export const RadioGroup = ({
   variantSize = "medium",
   onChange,
   value,
+  disabled,
 }: RadioGroupProps) => {
   const classNames = ["mq-radiogroup-wrapper", className];
   orientation === "column" && classNames.unshift("mq-radiogroup-wrapper-col");
@@ -42,6 +43,7 @@ export const RadioGroup = ({
             value={item?.value}
             variantSize={variantSize}
             onChange={onChange}
+            disabled={disabled}
           />
         );
       })}
