@@ -1,15 +1,37 @@
-import { RadioInput } from "components/radio-input";
+import { RadioGroup, RadioInput } from "components/radio-input";
 import { Checkbox } from "components/checkbox";
 import type { ElementSizeType } from "components/button/types";
 
 function App() {
-  const size: ElementSizeType = "large";
+  const size: ElementSizeType = "medium";
   return (
     <div
       style={{ padding: 18, display: "flex", alignItems: "center", gap: 12 }}
     >
-      <Checkbox variantSize={size} />
-      <RadioInput variantSize={size} />
+      {/* <Checkbox variantSize={size} /> */}
+      <RadioGroup
+        variantSize={size}
+        orientation="row"
+        itemGap={12}
+        items={[
+          {
+            label: "Raining cats and dogs",
+            value: "a",
+          },
+          {
+            label: "Wise foxs tail",
+            value: "b",
+          },
+          {
+            label: "Journy around the world",
+            value: "c",
+          },
+          {
+            label: "Mission of folk tails",
+            value: "d",
+          },
+        ]}
+      />
     </div>
   );
 }

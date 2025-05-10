@@ -71,3 +71,10 @@
 .mq-radio-wrapper.mq-radio-small {
   gap: 4px;
 }
+
+.mq-radiogroup-wrapper {
+  display: flex;
+}
+.mq-radiogroup-wrapper-col {
+  flex-direction: column;
+}

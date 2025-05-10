@@ -1,9 +1,5 @@
-import type { CheckboxProps } from "components/checkbox/types";
 import { useId } from "react";
-
-interface RadioInputProps extends CheckboxProps {
-  name?: string;
-}
+import type { RadioInputProps } from "./types";
 
 export const RadioInput = ({
   className,
