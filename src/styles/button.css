@@ -1,0 +1,121 @@
+.mq-btn {
+  outline: 0;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight);
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: none;
+}
+
+.mq-btn::before,
+.mq-btn::after {
+  box-sizing: border-box;
+}
+
+.mq-btn:active {
+  transform: scale(0.97);
+}
+
+.mq-btn-small {
+  padding: 0px 6px;
+  height: var(--height-sm);
+  font-size: var(--font-size-xs);
+}
+.mq-btn-medium {
+  padding: 0px 12px;
+  height: var(--height-md);
+  font-size: var(--font-size-sm);
+}
+.mq-btn-large {
+  padding: 0px 18px;
+  height: var(--height-lg);
+  font-size: var(--font-size);
+}
+
+.mq-btn-primary {
+  color: var(--primary-base-contrast);
+  box-shadow: 0 0 0 1px var(--primary-500) inset;
+  background-color: var(--primary-500);
+}
+.mq-btn-secondary {
+  color: var(--secondary-base-contrast);
+  box-shadow: 0 0 0 1px var(--secondary-500) inset;
+  background-color: var(--secondary-500);
+}
+.mq-btn-warn {
+  color: var(--warn-base-contrast);
+  box-shadow: 0 0 0 1px var(--warn-500) inset;
+  background-color: var(--warn-500);
+}
+.mq-btn-error {
+  color: var(--error-base-contrast);
+  box-shadow: 0 0 0 1px var(--error-500) inset;
+  background-color: var(--error-500);
+}
+
+.mq-btn-outline {
+  background-color: #ffffff;
+  color: #242424;
+}
+.mq-btn-ghost {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+.mq-btn-error.mq-btn-ghost {
+  color: var(--error-500);
+}
+.mq-btn-warn.mq-btn-ghost {
+  color: var(--warn-500);
+}
+.mq-btn-secondary.mq-btn-ghost {
+  color: var(--secondary-500);
+}
+.mq-btn-primary.mq-btn-ghost {
+  color: var(--primary-500);
+}
+
+.mq-btn-solid:not(:disabled):hover:before {
+  pointer-events: none;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff3c;
+}
+.mq-btn-ghost:not(:disabled):hover,
+.mq-btn-outline:not(:disabled):hover {
+  background-color: #2424240a;
+  transition: all 0.2s ease-in-out;
+}
+
+.mq-btn-medium.mq-btn-rounded {
+  border-radius: var(--border-radius-sm);
+}
+.mq-btn-small.mq-btn-rounded {
+  border-radius: var(--border-radius-sm);
+}
+.mq-btn-large.mq-btn-rounded {
+  border-radius: var(--border-radius);
+}
+
+.mq-btn-capsule {
+  min-width: 30px;
+  border-radius: 45px 45px 45px 45px;
+}
+.mq-btn-small.mq-btn-capsule {
+  padding: 0px 10px;
+}
+
+.mq-btn-circle {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  padding: 0;
+  flex-shrink: 0;
+}

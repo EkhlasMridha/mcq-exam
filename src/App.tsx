@@ -1,10 +1,13 @@
+import { Button } from "components/button";
 import "./App.css";
 import { Input } from "components/input";
 
 function App() {
   return (
     <div style={{ padding: 18 }}>
-      <Input variantSize="medium" maxLength={5} />
+      <Button shape="circle" size="large">
+        C
+      </Button>
     </div>
   );
 }
