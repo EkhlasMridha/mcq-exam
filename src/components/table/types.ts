@@ -85,3 +85,5 @@ export interface TableBodyProps
     HTMLAttributes<HTMLTableSectionElement>,
     HTMLTableSectionElement
   > {}
+
+export interface ColGroupProps<T> extends Pick<TableProps<T>, "columns"> {}
