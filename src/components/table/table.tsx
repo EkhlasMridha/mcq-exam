@@ -1,3 +1,4 @@
+import { ColGroup } from "./colgroup";
 import { TableBody } from "./table-body";
 import { TableContext } from "./table-context";
 import { TableHead } from "./table-head";
@@ -20,6 +21,7 @@ export const Table = <T extends any>({
     >
       <table className={classNames} {...restProps}>
         <TableHead columns={columns} />
+        <ColGroup columns={columns} />
         <TableBody />
       </table>
     </TableContext>
