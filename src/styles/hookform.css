@@ -1,0 +1,21 @@
+.hookform-label {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  color: #242424;
+}
+
+.hookform-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hookform-item-rtl {
+  align-items: end;
+}
+
+.hookform-error {
+  color: var(--error-500);
+  font-size: var(--font-size-xs);
+  padding: 4px 2px;
+  font-weight: var(--font-weight);
+}
