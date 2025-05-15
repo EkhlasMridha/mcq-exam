@@ -70,16 +70,20 @@ export const HookFormItem = ({
   return (
     <div className={classNames.join(" ")} style={style}>
       <FormItemLabel label={label} labelClassName={labelClassName} />
-      {!!name ? (
-        <Controller
-          name={name}
-          control={control}
-          render={renderControllerElement}
-        />
-      ) : (
-        children
-      )}
-      {!!errorMessage && <span className="hookform-error">{errorMessage}</span>}
+      <div className="hookform-controll-container">
+        {!!name ? (
+          <Controller
+            name={name}
+            control={control}
+            render={renderControllerElement}
+          />
+        ) : (
+          children
+        )}
+        {!!errorMessage && (
+          <span className="hookform-error">{errorMessage}</span>
+        )}
+      </div>
     </div>
   );
 };

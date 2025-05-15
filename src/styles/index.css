@@ -1,7 +1,9 @@
 @import "./variables.css";
+@import "./common.css";
 @import "./input.css";
 @import "./button.css";
 @import "./checkbox.css";
 @import "./radioinput.css";
 @import "./table.css";
 @import "./hookform.css";
+@import "./card.css";
