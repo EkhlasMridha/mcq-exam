@@ -75,7 +75,10 @@
 .password-input:has(:disabled) .eye-icon-container {
   display: none;
 }
+
+.password-input .eye-icon-container:focus,
 .password-input:not(:has(:disabled)) .eye-icon-container:hover {
+  outline: none;
   color: var(--primary-500);
   background-color: var(--gray-100);
 }
