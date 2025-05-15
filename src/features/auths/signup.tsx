@@ -44,10 +44,7 @@ export const SignUp = () => {
     });
 
   return (
-    <Card
-      className={`${styles.signup_container} ${styles.auth_container}`}
-      focusTrap
-    >
+    <Card className={`${styles.signup_container} ${styles.auth_container}`}>
       <div
         className={`${styles.inner_container} ${styles.inner_container_signup}`}
       >

@@ -1,18 +1,15 @@
 import type { CSSProperties, ReactNode } from "react";
-import { createFocusTrap } from "focus-trap";
-import { FocusTrap } from "components/focus-trap";
 
 interface CardProps {
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
-  focusTrap?: boolean;
 }
 
-export const Card = ({ children, className, style, focusTrap }: CardProps) => {
+export const Card = ({ children, className, style }: CardProps) => {
   const classNames = ["card", className].join(" ");
 
-  const content = (
+  return (
     <div
       role="card"
       aria-description="card"
@@ -22,10 +19,4 @@ export const Card = ({ children, className, style, focusTrap }: CardProps) => {
       {children}
     </div>
   );
-
-  if (focusTrap) {
-    return <FocusTrap>{content}</FocusTrap>;
-  }
-
-  return content;
 };

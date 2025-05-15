@@ -19,10 +19,7 @@ export const SignIn = () => {
   });
 
   return (
-    <Card
-      className={`${styles.signin_container} ${styles.auth_container}`}
-      focusTrap
-    >
+    <Card className={`${styles.signin_container} ${styles.auth_container}`}>
       <div
         className={`${styles.inner_container} ${styles.inner_container_signin}`}
       >
