@@ -32,9 +32,11 @@ export const HookFormItem = ({
     control,
   } = useFormContext();
 
-  const messageList =
-    !errors?.[name ?? ""] && getErrorMessage(errors?.[name ?? ""]);
-  const errorMessage = messageList && messageList.join(", ");
+  console.log(errors?.[name ?? ""]);
+
+  const messageList = getErrorMessage(errors?.[name ?? ""]);
+  console.log("MSG: ", messageList);
+  const errorMessage = messageList && messageList.join(", ").trim();
   const classNames = ["hookform-item", className];
   rtl && classNames.unshift("hookform-item-rtl");
 
@@ -68,18 +70,24 @@ export const HookFormItem = ({
   };
 
   return (
-    <div className={classNames.join(" ")} style={style}>
+    <div className={classNames.join(" ")} style={style} data-name={name ?? ""}>
       <FormItemLabel label={label} labelClassName={labelClassName} />
-      {!!name ? (
-        <Controller
-          name={name}
-          control={control}
-          render={renderControllerElement}
-        />
-      ) : (
-        children
-      )}
-      {!!errorMessage && <span className="hookform-error">{errorMessage}</span>}
+      <div className="hookform-controll-container">
+        {!!name ? (
+          <Controller
+            name={name}
+            control={control}
+            render={renderControllerElement}
+          />
+        ) : (
+          children
+        )}
+        <div className="hookform-error-container">
+          {!!errorMessage && (
+            <span className="hookform-error">{errorMessage}</span>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

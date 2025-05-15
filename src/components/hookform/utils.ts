@@ -1,7 +1,8 @@
 import type { FieldErrorsType } from "./types";
 
 export function getErrorMessage(fieldErrors?: FieldErrorsType) {
-  const errorMessage = fieldErrors;
+  const errorMessage = fieldErrors || {};
+  console.log("CTH: ", errorMessage);
   if (typeof errorMessage?.message === "string") return [errorMessage?.message];
 
   const messageList: string[] = [];

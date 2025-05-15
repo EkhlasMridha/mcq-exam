@@ -132,3 +132,20 @@
   height: 100%;
   background-color: #ffffff69;
 }
+
+.mq-btn.mq-btn-primary:not(:disabled):focus-visible {
+  outline: none;
+  box-shadow: 0 0 10px 0px var(--primary-300);
+}
+.mq-btn.mq-btn-secondary:not(:disabled):focus-visible {
+  outline: none;
+  box-shadow: 0 0 4px 2px var(--secondary-600);
+}
+.mq-btn.mq-btn-error:not(:disabled):focus-visible {
+  outline: none;
+  box-shadow: 0 0 4px 2px var(--error-600);
+}
+.mq-btn.mq-btn-warn:not(:disabled):focus-visible {
+  outline: none;
+  box-shadow: 0 0 4px 2px var(--warn-600);
+}

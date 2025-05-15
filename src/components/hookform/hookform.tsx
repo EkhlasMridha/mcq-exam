@@ -37,9 +37,30 @@ export const HookForm = forwardRef<UseFormType, HookFormProps>(
 
     useImperativeHandle(ref, () => internalForm, [internalForm]);
 
+    const { handleSubmit } = internalForm;
+
+    const onFormError = (errors: any) => {
+      let keys = Object.keys(errors ?? {}).map((key) => key);
+      if (keys?.length > 0) {
+        let dom = document?.querySelector(`[data-name="${keys[0]}"]`);
+        dom?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
+
+    const handleFormSubmit = (data: any, event?: React.BaseSyntheticEvent) => {
+      onFormSubmit && onFormSubmit({ ...data }, event);
+    };
+
     return (
       <FormProvider {...internalForm}>
-        <form {...restProps}>{children}</form>
+        <form
+          {...restProps}
+          onSubmit={handleSubmit(handleFormSubmit, (errors) =>
+            onFormError(errors)
+          )}
+        >
+          {children}
+        </form>
       </FormProvider>
     );
   }
