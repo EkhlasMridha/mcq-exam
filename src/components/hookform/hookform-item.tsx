@@ -32,9 +32,11 @@ export const HookFormItem = ({
     control,
   } = useFormContext();
 
-  const messageList =
-    !errors?.[name ?? ""] && getErrorMessage(errors?.[name ?? ""]);
-  const errorMessage = messageList && messageList.join(", ");
+  console.log(errors?.[name ?? ""]);
+
+  const messageList = getErrorMessage(errors?.[name ?? ""]);
+  console.log("MSG: ", messageList);
+  const errorMessage = messageList && messageList.join(", ").trim();
   const classNames = ["hookform-item", className];
   rtl && classNames.unshift("hookform-item-rtl");
 
