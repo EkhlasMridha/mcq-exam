@@ -82,9 +82,11 @@ export const HookFormItem = ({
         ) : (
           children
         )}
-        {!!errorMessage && (
-          <span className="hookform-error">{errorMessage}</span>
-        )}
+        <div className="hookform-error-container">
+          {!!errorMessage && (
+            <span className="hookform-error">{errorMessage}</span>
+          )}
+        </div>
       </div>
     </div>
   );
