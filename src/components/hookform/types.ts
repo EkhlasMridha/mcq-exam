@@ -1,5 +1,10 @@
 import type { zodResolver } from "@hookform/resolvers/zod";
-import type { CSSProperties, FormHTMLAttributes, ReactNode } from "react";
+import type {
+  BaseSyntheticEvent,
+  CSSProperties,
+  FormHTMLAttributes,
+  ReactNode,
+} from "react";
 import type {
   ControllerProps,
   FieldError,
@@ -20,7 +25,7 @@ export interface HookFormProps
   zodSchema?: ZodParameters["0"];
   schemaOptions?: ZodParameters["1"];
   resolverOptions?: ZodParameters["2"];
-  onFormSubmit?: (data: any) => void;
+  onFormSubmit?: (data: any, event?: BaseSyntheticEvent) => void;
 }
 
 export type UseFormType = UseFormReturn<

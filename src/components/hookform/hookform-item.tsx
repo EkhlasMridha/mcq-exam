@@ -68,7 +68,7 @@ export const HookFormItem = ({
   };
 
   return (
-    <div className={classNames.join(" ")} style={style}>
+    <div className={classNames.join(" ")} style={style} data-name={name ?? ""}>
       <FormItemLabel label={label} labelClassName={labelClassName} />
       <div className="hookform-controll-container">
         {!!name ? (
