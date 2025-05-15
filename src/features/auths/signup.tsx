@@ -1,11 +1,11 @@
+import { Button } from "components/button";
 import { Card } from "components/card";
 import { HookForm, HookFormItem } from "components/hookform";
-import styles from "./auth.module.css";
 import { Input } from "components/input";
 import { PasswordInput } from "components/password-input/password-input";
-import { Button } from "components/button";
-import { useNavigate, useNavigation } from "react-router";
+import { useNavigate } from "react-router";
 import { string, z } from "zod";
+import styles from "./auth.module.css";
 
 export const SignUp = () => {
   const navigation = useNavigate();
