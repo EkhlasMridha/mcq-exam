@@ -12,26 +12,31 @@ export const SignUp = () => {
 
   const schema = z
     .object({
-      firstname: string({
-        required_error: "First name is required",
-      }).max(150, { message: "Max length is 150 characters" }),
+      firstname: string({ required_error: "First name is required" })
+        .nonempty("First name is required")
+        .max(150, { message: "Max length is 150 characters" }),
       lastname: string({
         required_error: "Last name is required",
       })
+        .nonempty("Last name is required")
         .max(150, { message: "Max length is 150 characters" })
         .min(2, { message: "Too short last name" }),
       email: string({
         required_error: "Email is required",
-      }).email("Invalid email"),
+      })
+        .nonempty("Email is required")
+        .email("Invalid email"),
       password: string({
         required_error: "Password is required",
-      }).regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, {
-        message:
-          "Password must contain letters and digits with a minimum length of 6",
-      }),
+      })
+        .nonempty("Password is required")
+        .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, {
+          message:
+            "Password must contain letters and digits with a minimum length of 6",
+        }),
       confirm_password: string({
         required_error: "Please enter your password again",
-      }),
+      }).nonempty("Please enter your password again"),
     })
     .refine((data) => data.password === data.confirm_password, {
       path: ["confirm_password"],
@@ -39,7 +44,10 @@ export const SignUp = () => {
     });
 
   return (
-    <Card className={`${styles.signup_container} ${styles.auth_container}`}>
+    <Card
+      className={`${styles.signup_container} ${styles.auth_container}`}
+      focusTrap
+    >
       <div
         className={`${styles.inner_container} ${styles.inner_container_signup}`}
       >

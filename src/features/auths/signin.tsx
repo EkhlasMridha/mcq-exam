@@ -15,11 +15,14 @@ export const SignIn = () => {
     }).email("Invalid email address"),
     password: string({
       required_error: "Password is required",
-    }),
+    }).nonempty("Password is required"),
   });
 
   return (
-    <Card className={`${styles.signin_container} ${styles.auth_container}`}>
+    <Card
+      className={`${styles.signin_container} ${styles.auth_container}`}
+      focusTrap
+    >
       <div
         className={`${styles.inner_container} ${styles.inner_container_signin}`}
       >
