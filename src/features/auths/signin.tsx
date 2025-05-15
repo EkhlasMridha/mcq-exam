@@ -26,7 +26,7 @@ export const SignIn = () => {
         <h1 className={styles.auth_header}>SignIn</h1>
         <HookForm zodSchema={zodSchema} className="w-full" id="signin-form">
           <HookFormItem name="email" label={"Email"}>
-            <Input variantSize="large" />
+            <Input variantSize="large" autoFocus />
           </HookFormItem>
           <HookFormItem name="password" label={"Password"}>
             <PasswordInput variantSize="large" />

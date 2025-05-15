@@ -47,7 +47,7 @@ export const SignUp = () => {
         <HookForm zodSchema={schema} id="signup_form">
           <div className="flex" style={{ gap: 16 }}>
             <HookFormItem name="firstname" label={"First name"}>
-              <Input variantSize="large" />
+              <Input variantSize="large" autoFocus />
             </HookFormItem>
             <HookFormItem name="lastname" label={"Last name"}>
               <Input variantSize="large" />

@@ -33,9 +33,10 @@
   background-color: #ffffff;
   transition: var(--input-focus-transition);
 }
-.mq-input.error {
+.mq-input-outline.error {
   border-color: var(--error-500);
 }
+.mq-input-outline.error:focus-within,
 .mq-input.error:focus {
   box-shadow: var(--input-focus-highlight-error);
 }
@@ -44,7 +45,7 @@
 .mq-input::after {
   box-sizing: border-box;
 }
-
+.mq-input-outline:has(:disabled),
 .mq-input:disabled {
   background-color: var(--disabled-bg-color);
   color: var(--disabled-text-color);
@@ -71,11 +72,14 @@
   margin-right: 8px;
 }
 
-.password-input .eye-icon-container:hover {
+.password-input:has(:disabled) .eye-icon-container {
+  display: none;
+}
+.password-input:not(:has(:disabled)) .eye-icon-container:hover {
   color: var(--primary-500);
   background-color: var(--gray-100);
 }
-.password-input .eye-icon-container:active {
+.password-input:not(:has(:disabled)) .eye-icon-container:active {
   transform: scale(0.95);
 }
 
