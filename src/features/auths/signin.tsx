@@ -3,6 +3,7 @@ import { HookForm, HookFormItem } from "components/hookform";
 import { Input } from "components/input";
 import styles from "./signin.module.css";
 import { Button } from "components/button";
+import { PasswordInput } from "components/password-input/password-input";
 
 export const SignIn = () => {
   return (
@@ -14,7 +15,7 @@ export const SignIn = () => {
             <Input variantSize="large" />
           </HookFormItem>
           <HookFormItem name="password" label={"Password"}>
-            <Input variantSize="large" type="password" />
+            <PasswordInput variantSize="large" />
           </HookFormItem>
         </HookForm>
         <Button

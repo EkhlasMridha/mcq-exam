@@ -1,11 +1,18 @@
+.mq-input-outline {
+  box-sizing: border-box;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  transition: var(--input-focus-transition);
+  overflow: hidden;
+}
 .mq-input {
   box-sizing: border-box;
   padding: 4px 10px;
   display: inline-block;
-  border-radius: var(--border-radius-sm);
-  line-height: 1.5;
-  border: 1px solid var(--border-color);
-  transition: var(--input-focus-transition);
+}
+.mq-input-outline > input {
+  border: none;
+  outline: none;
 }
 
 .mq-input-small {
@@ -18,7 +25,8 @@
   line-height: 2;
 }
 
-.mq-input:focus {
+.mq-input-outline:focus-within,
+.mq-input-outline:focus {
   outline: none;
   border-color: var(--primary-500);
   box-shadow: var(--input-focus-highlight);
@@ -40,4 +48,38 @@
 .mq-input:disabled {
   background-color: var(--disabled-bg-color);
   color: var(--disabled-text-color);
+}
+
+.password-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-input .eye-icon-container {
+  line-height: 1.5;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: var(--gray-500);
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0px 8px;
+  aspect-ratio: 1;
+  margin-right: 8px;
+}
+
+.password-input .eye-icon-container:hover {
+  color: var(--primary-500);
+  background-color: var(--gray-100);
+}
+.password-input .eye-icon-container:active {
+  transform: scale(0.95);
+}
+
+.password-input .eye-icon-container svg {
+  height: 14px;
+  width: 16px;
 }
