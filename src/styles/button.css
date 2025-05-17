@@ -124,6 +124,9 @@
 .mq-btn.mq-btn-icon {
   gap: 4px;
 }
+.mq-btn-large.mq-btn-icon {
+  gap: 6px;
+}
 .mq-btn-large.mq-btn-icon > svg {
   height: 18px;
 }
