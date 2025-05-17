@@ -94,6 +94,22 @@
   background-color: #2424240a;
   transition: all 0.2s ease-in-out;
 }
+.mq-btn-primary.mq-btn-outline:not(:disabled):focus,
+.mq-btn-primary.mq-btn-outline:not(:disabled):hover {
+  color: var(--primary-500);
+}
+.mq-btn-error.mq-btn-outline:not(:disabled):focus,
+.mq-btn-error.mq-btn-outline:not(:disabled):hover {
+  color: var(--error-500);
+}
+.mq-btn-warn.mq-btn-outline:not(:disabled):focus,
+.mq-btn-warn.mq-btn-outline:not(:disabled):hover {
+  color: var(--warn-500);
+}
+.mq-btn-secondary.mq-btn-outline:not(:disabled):focus,
+.mq-btn-secondary.mq-btn-outline:not(:disabled):hover {
+  color: var(--secondary-500);
+}
 
 .mq-btn-medium.mq-btn-rounded {
   border-radius: var(--border-radius-sm);
@@ -103,6 +119,25 @@
 }
 .mq-btn-large.mq-btn-rounded {
   border-radius: var(--border-radius);
+}
+
+.mq-btn.mq-btn-icon {
+  gap: 4px;
+}
+.mq-btn-large.mq-btn-icon {
+  gap: 6px;
+}
+.mq-btn-large.mq-btn-icon > svg {
+  height: 18px;
+}
+.mq-btn-medium.mq-btn-icon > svg {
+  height: 16px;
+}
+.mq-btn-small.mq-btn-icon > svg {
+  height: 14px;
+}
+.mq-btn-small.mq-btn-icon {
+  gap: 2px;
 }
 
 .mq-btn-capsule {

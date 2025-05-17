@@ -21,10 +21,9 @@ export const HookFormItem = ({
   hidden,
 }: HookFormItemProps) => {
   if (Children.count(children) !== 1 || !isValidElement(children)) {
-    console.warn(
+    throw new Error(
       "HookFormItem expects exactly one valid React element as a child."
     );
-    return null;
   }
 
   const {
@@ -32,10 +31,7 @@ export const HookFormItem = ({
     control,
   } = useFormContext();
 
-  console.log(errors?.[name ?? ""]);
-
   const messageList = getErrorMessage(errors?.[name ?? ""]);
-  console.log("MSG: ", messageList);
   const errorMessage = messageList && messageList.join(", ").trim();
   const classNames = ["hookform-item", className];
   rtl && classNames.unshift("hookform-item-rtl");

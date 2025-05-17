@@ -52,20 +52,24 @@ export const SignUp = () => {
         <HookForm zodSchema={schema} id="signup_form">
           <div className="flex" style={{ gap: 16 }}>
             <HookFormItem name="firstname" label={"First name"}>
-              <Input variantSize="large" autoFocus />
+              <Input variantSize="large" autoFocus placeholder="John" />
             </HookFormItem>
             <HookFormItem name="lastname" label={"Last name"}>
-              <Input variantSize="large" />
+              <Input variantSize="large" placeholder="Doe" />
             </HookFormItem>
           </div>
           <HookFormItem name="email" label={"Email"}>
-            <Input variantSize="large" type="email" />
+            <Input
+              variantSize="large"
+              type="email"
+              placeholder="example@examle.com"
+            />
           </HookFormItem>
           <HookFormItem name="password" label={"Password"}>
-            <PasswordInput variantSize="large" />
+            <PasswordInput variantSize="large" placeholder="******" />
           </HookFormItem>
           <HookFormItem name="confirm_password" label={"Confirm password"}>
-            <PasswordInput variantSize="large" />
+            <PasswordInput variantSize="large" placeholder="******" />
           </HookFormItem>
         </HookForm>
         <div className="flex justify-end w-full" style={{ marginTop: 18 }}>

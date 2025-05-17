@@ -18,12 +18,13 @@ export const Button = ({
     `mq-btn-${variant}`,
     `mq-btn-${shape}`,
     className,
-  ]
-    .join(" ")
-    .trim();
+  ];
+  !!icon && classNames.unshift("mq-btn-icon");
+  const flattenedClassNames = classNames.join(" ").trim();
 
   return (
-    <button className={classNames} {...restProps}>
+    <button className={flattenedClassNames} {...restProps}>
+      {icon}
       {children}
     </button>
   );
