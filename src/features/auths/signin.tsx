@@ -6,6 +6,10 @@ import { Button } from "components/button";
 import { PasswordInput } from "components/password-input/password-input";
 import { string, z } from "zod";
 import { useNavigate } from "react-router";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { APP_ENV } from "constants/app.env";
+import { GoogleSinginButton } from "components/google-signin-button";
+import { EmailIcon } from "components/icons";
 
 export const SignIn = () => {
   const navigate = useNavigate();
@@ -17,6 +21,8 @@ export const SignIn = () => {
       required_error: "Password is required",
     }).nonempty("Password is required"),
   });
+
+  console.log("ENV: ", APP_ENV.googleClientId);
 
   return (
     <Card className={`${styles.signin_container} ${styles.auth_container}`}>
@@ -45,16 +51,32 @@ export const SignIn = () => {
         >
           SignIn
         </Button>
+        <div className="flex flex-col w-full">
+          <span
+            style={{
+              marginBottom: 8,
+              marginTop: 18,
+              textAlign: "center",
+            }}
+          >
+            Or
+          </span>
+          <GoogleOAuthProvider clientId={APP_ENV.googleClientId}>
+            <GoogleSinginButton className="w-full" />
+          </GoogleOAuthProvider>
+        </div>
         <div className="w-full">
           <p className={styles.donthavetext}>Don't have an account?</p>
+
           <Button
             variant="outline"
             size="large"
             className="w-full"
             type="button"
             onClick={() => navigate("/signup")}
+            icon={<EmailIcon width={16} />}
           >
-            SignUp
+            Continue with email
           </Button>
         </div>
       </div>
