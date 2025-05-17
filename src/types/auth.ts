@@ -4,7 +4,7 @@ export interface RefreshTokenPayload {
   refreshToken: string;
 }
 export interface GoogleAuthPayload {
-  authToken: string;
+  code: string;
 }
 
 export interface AccessTokenData extends JwtPayload {

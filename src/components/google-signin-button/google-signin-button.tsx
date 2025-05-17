@@ -8,7 +8,7 @@ export const GoogleSinginButton = ({
   googleOptions,
   ...restProps
 }: GoogleSinginButtonProps) => {
-  const login = useGoogleLogin({ ...googleOptions });
+  const login = useGoogleLogin({ flow: "auth-code", ...googleOptions });
   return (
     <Button
       icon={<GoogleIcon />}

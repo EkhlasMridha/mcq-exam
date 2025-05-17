@@ -10,16 +10,20 @@ export function oAuthSignin(
   payload: GoogleAuthPayload,
   abortController?: AbortController
 ) {
-  return httpClient.post("/auth/google-oauth", payload, {
-    signal: abortController?.signal,
-  });
+  return httpClient
+    .post<TokenResponseData>("/auth/google-oauth", payload, {
+      signal: abortController?.signal,
+    })
+    .then((res) => res?.data);
 }
 
 export function refreshAccessToken(
   payload: RefreshTokenPayload,
   abortController?: AbortController
 ) {
-  return axios.post<TokenResponseData>("/auth/refresh", payload, {
-    signal: abortController?.signal,
-  });
+  return axios
+    .post<TokenResponseData>("/auth/refresh", payload, {
+      signal: abortController?.signal,
+    })
+    .then((res) => res?.data);
 }

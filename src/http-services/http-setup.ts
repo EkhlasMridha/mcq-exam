@@ -55,7 +55,7 @@ async function handleRefreshToken(): Promise<string> {
 
   const res = await refreshAccessToken({ refreshToken: refreshToken });
 
-  const { access_token, refresh_token: newRefreshToken } = res.data;
+  const { access_token, refresh_token: newRefreshToken } = res;
   localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
   localStorage.setItem(ACESS_TOKEN_KEY, access_token);
 
