@@ -94,15 +94,19 @@
   background-color: #2424240a;
   transition: all 0.2s ease-in-out;
 }
+.mq-btn-primary.mq-btn-outline:not(:disabled):focus,
 .mq-btn-primary.mq-btn-outline:not(:disabled):hover {
   color: var(--primary-500);
 }
+.mq-btn-error.mq-btn-outline:not(:disabled):focus,
 .mq-btn-error.mq-btn-outline:not(:disabled):hover {
   color: var(--error-500);
 }
+.mq-btn-warn.mq-btn-outline:not(:disabled):focus,
 .mq-btn-warn.mq-btn-outline:not(:disabled):hover {
   color: var(--warn-500);
 }
+.mq-btn-secondary.mq-btn-outline:not(:disabled):focus,
 .mq-btn-secondary.mq-btn-outline:not(:disabled):hover {
   color: var(--secondary-500);
 }
