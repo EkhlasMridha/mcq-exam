@@ -62,7 +62,14 @@ export const SignIn = () => {
             Or
           </span>
           <GoogleOAuthProvider clientId={APP_ENV.googleClientId}>
-            <GoogleSinginButton className="w-full" />
+            <GoogleSinginButton
+              className="w-full"
+              googleOptions={{
+                onSuccess: (tokenResponse) => {
+                  console.log(tokenResponse);
+                },
+              }}
+            />
           </GoogleOAuthProvider>
         </div>
         <div className="w-full">
