@@ -61,9 +61,11 @@ export const SignIn = () => {
           >
             Or
           </span>
-          <GoogleOAuthProvider clientId={APP_ENV.googleClientId}>
-            <GoogleSinginButton className="w-full" />
-          </GoogleOAuthProvider>
+
+          <GoogleSinginButton
+            className="w-full"
+            clienId={APP_ENV.googleClientId}
+          />
         </div>
         <div className="w-full">
           <p className={styles.donthavetext}>Don't have an account?</p>
