@@ -14,7 +14,7 @@ import { APP_ENV } from "constants/app.env";
 import { useNavigate } from "react-router";
 import { string, z } from "zod";
 import styles from "./auth.module.css";
-import { oAuthSignin } from "http-services/auth-service";
+import { oAuthSignin, passwordSignin } from "http-services/auth-service";
 import { storeJwtToken } from "utils/jwt-helpers";
 
 export const SignIn = () => {
@@ -39,19 +39,28 @@ export const SignIn = () => {
     });
   };
 
+  const onPasswordSignin = (data: any) => {
+    console.log(data);
+    passwordSignin(data).then((res) => {
+      storeJwtToken(res);
+      navigate("/");
+    });
+  };
+
   return (
     <Card className={`${styles.signin_container} ${styles.auth_container}`}>
       <div
         className={`${styles.inner_container} ${styles.inner_container_signin}`}
       >
         <h1 className={styles.auth_header}>SignIn</h1>
-        <HookForm zodSchema={zodSchema} className="w-full" id="signin-form">
+        <HookForm
+          zodSchema={zodSchema}
+          onFormSubmit={onPasswordSignin}
+          className="w-full"
+          id="signin-form"
+        >
           <HookFormItem name="email" label={"Email"}>
-            <Input
-              variantSize="large"
-              autoFocus
-              placeholder="Your email address"
-            />
+            <Input variantSize="large" autoFocus placeholder="Email address" />
           </HookFormItem>
           <HookFormItem name="password" label={"Password"}>
             <PasswordInput variantSize="large" placeholder="password" />

@@ -1,6 +1,7 @@
 import type {
   GoogleAuthPayload,
   RefreshTokenPayload,
+  SigninPayload,
   TokenResponseData,
 } from "types/auth";
 import { httpClient } from "./http-setup";
@@ -23,6 +24,17 @@ export function refreshAccessToken(
 ) {
   return axios
     .post<TokenResponseData>("/auth/refresh", payload, {
+      signal: abortController?.signal,
+    })
+    .then((res) => res?.data);
+}
+
+export function passwordSignin(
+  payload: SigninPayload,
+  abortController?: AbortController
+) {
+  return axios
+    .post<TokenResponseData>("/auth/signin", payload, {
       signal: abortController?.signal,
     })
     .then((res) => res?.data);

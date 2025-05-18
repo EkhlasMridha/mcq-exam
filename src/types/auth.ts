@@ -19,3 +19,7 @@ export interface TokenResponseData {
   access_token: string;
   refresh_token: string;
 }
+export interface SigninPayload {
+  email: string;
+  password: string;
+}
