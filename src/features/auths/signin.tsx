@@ -1,8 +1,4 @@
-import {
-  GoogleOAuthProvider,
-  type CodeResponse,
-  type UseGoogleLoginOptionsAuthCodeFlow,
-} from "@react-oauth/google";
+import { GoogleOAuthProvider, type CodeResponse } from "@react-oauth/google";
 import { Button } from "components/button";
 import { Card } from "components/card";
 import { GoogleSinginButton } from "components/google-signin-button";
@@ -11,11 +7,11 @@ import { EmailIcon } from "components/icons";
 import { Input } from "components/input";
 import { PasswordInput } from "components/password-input/password-input";
 import { APP_ENV } from "constants/app.env";
+import { oAuthSignin, passwordSignin } from "http-services/auth-service";
 import { useNavigate } from "react-router";
+import { storeJwtToken } from "utils/jwt-helpers";
 import { string, z } from "zod";
 import styles from "./auth.module.css";
-import { oAuthSignin, passwordSignin } from "http-services/auth-service";
-import { storeJwtToken } from "utils/jwt-helpers";
 
 export const SignIn = () => {
   const navigate = useNavigate();
