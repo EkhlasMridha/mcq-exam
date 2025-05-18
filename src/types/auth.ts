@@ -23,3 +23,10 @@ export interface SigninPayload {
   email: string;
   password: string;
 }
+
+export interface UserSignupPayload {
+  firstName: string;
+  lastName: string;
+  password: string;
+  email: string;
+}

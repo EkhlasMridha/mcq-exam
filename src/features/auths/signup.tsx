@@ -6,16 +6,17 @@ import { PasswordInput } from "components/password-input/password-input";
 import { useNavigate } from "react-router";
 import { string, z } from "zod";
 import styles from "./auth.module.css";
+import { signupUser } from "http-services/auth-service";
 
 export const SignUp = () => {
   const navigation = useNavigate();
 
   const schema = z
     .object({
-      firstname: string({ required_error: "First name is required" })
+      firstName: string({ required_error: "First name is required" })
         .nonempty("First name is required")
         .max(150, { message: "Max length is 150 characters" }),
-      lastname: string({
+      lastName: string({
         required_error: "Last name is required",
       })
         .nonempty("Last name is required")
@@ -43,18 +44,29 @@ export const SignUp = () => {
       message: "Confirm password and password must be same",
     });
 
+  const onSignupUser = (data: any) => {
+    const { confirm_password, ...restData } = data;
+    signupUser(restData).then((res) => {
+      navigation("/signin");
+    });
+  };
+
   return (
     <Card className={`${styles.signup_container} ${styles.auth_container}`}>
       <div
         className={`${styles.inner_container} ${styles.inner_container_signup}`}
       >
         <h1 className={styles.auth_header}>SignUp</h1>
-        <HookForm zodSchema={schema} id="signup_form">
+        <HookForm
+          zodSchema={schema}
+          onFormSubmit={onSignupUser}
+          id="signup_form"
+        >
           <div className="flex" style={{ gap: 16 }}>
-            <HookFormItem name="firstname" label={"First name"}>
+            <HookFormItem name="firstName" label={"First name"}>
               <Input variantSize="large" autoFocus placeholder="John" />
             </HookFormItem>
-            <HookFormItem name="lastname" label={"Last name"}>
+            <HookFormItem name="lastName" label={"Last name"}>
               <Input variantSize="large" placeholder="Doe" />
             </HookFormItem>
           </div>
