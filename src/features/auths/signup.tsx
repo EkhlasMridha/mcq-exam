@@ -46,7 +46,7 @@ export const SignUp = () => {
 
   const onSignupUser = (data: any) => {
     const { confirm_password, ...restData } = data;
-    signupUser(restData).then((res) => {
+    signupUser(restData).then(() => {
       navigation("/signin");
     });
   };
