@@ -1,4 +1,4 @@
-import { ModalHandler } from "components/modals/modal";
+import { ModalHandler } from "components/modals/modal-engine";
 import { StrictMode, useEffect } from "react";
 import { RouterProvider } from "react-router";
 import { routes } from "routers/route.config";

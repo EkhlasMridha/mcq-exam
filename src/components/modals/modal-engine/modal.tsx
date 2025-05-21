@@ -8,6 +8,7 @@ let modalStack: ModalStackType[] = [];
 
 export const ModalHandler = {
   count: 0,
+  baseModalZIndex: 9999999999,
   renderModal({
     component,
     backdropClassNames,
@@ -42,13 +43,16 @@ export const ModalHandler = {
     const modal = (
       <div
         className={classNames}
-        style={{ zIndex: 9999999999 + ModalHandler.count }}
+        style={{ zIndex: this.baseModalZIndex + this.count }}
         onClick={() => maskClose && closeModal(modalId)}
       >
         {showBackdrop && (
           <div className={backdropClassName} style={backdropStyles} />
         )}
-        <div onClick={(event) => event.stopPropagation()}>
+        <div
+          style={{ zIndex: this.baseModalZIndex + (this.count + 1) }}
+          onClick={(event) => event.stopPropagation()}
+        >
           {cloneElement(component, { onClose: () => closeModal(modalId) })}
         </div>
       </div>
