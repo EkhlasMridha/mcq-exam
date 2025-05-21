@@ -9,8 +9,9 @@ export interface RenderModalProps {
   backdropStyles?: CSSProperties;
   destroyOnClose?: boolean;
   maskClose?: boolean;
+  className?: string;
 }
-export type OpenModalParams = RenderModalProps;
+export type OpenModalParams = Omit<RenderModalProps, "className">;
 
 export interface ModalStackType
   extends Pick<RenderModalProps, "onClose" | "destroyOnClose"> {

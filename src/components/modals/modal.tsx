@@ -3,18 +3,20 @@ import type { ModalStackType, RenderModalProps } from "./types";
 import { generateModalId } from "./utils";
 import { cloneElement } from "react";
 
-let modalRoot: HTMLDivElement | null = null;
+let modalRoot: HTMLElement | null = document.getElementById("modal_root");
 let modalStack: ModalStackType[] = [];
 
 export const ModalHandler = {
+  count: 0,
   renderModal({
     component,
     backdropClassNames,
     backdropStyles,
-    destroyOnClose,
-    maskClose,
+    destroyOnClose = true,
+    maskClose = true,
     onClose,
     showBackdrop = true,
+    className,
   }: RenderModalProps) {
     if (!modalRoot) {
       modalRoot = document.createElement("div");
@@ -23,6 +25,7 @@ export const ModalHandler = {
     }
     const modalId = generateModalId();
     const modalWrapper = document.createElement("div");
+    modalWrapper.id = "modal_wrapper";
     modalRoot.appendChild(modalWrapper);
 
     const root = createRoot(modalWrapper);
@@ -34,10 +37,12 @@ export const ModalHandler = {
     const closeModal = (id: string) => {
       this.close(id);
     };
+    const classNames = ["modal-container", className].join(" ");
 
     const modal = (
       <div
-        className="modal-container"
+        className={classNames}
+        style={{ zIndex: 9999999999 + ModalHandler.count }}
         onClick={() => maskClose && closeModal(modalId)}
       >
         {showBackdrop && (
@@ -48,8 +53,8 @@ export const ModalHandler = {
         </div>
       </div>
     );
+    ++ModalHandler.count;
 
-    root.render(modal);
     modalStack.push({
       modalId: modalId,
       modalRoot: root,
@@ -58,6 +63,7 @@ export const ModalHandler = {
       modalWrapper,
       onClose,
     });
+    root.render(modal);
 
     return modalId;
   },
@@ -78,7 +84,10 @@ export const ModalHandler = {
     } else {
       modal.modalRoot.unmount();
       modal.modalWrapper.remove();
+      const index = modalStack.indexOf(modal);
+      modalStack.splice(index, 1);
     }
+    --ModalHandler.count;
     modal?.onClose?.();
     return modal.modalId;
   },
@@ -89,6 +98,10 @@ export const ModalHandler = {
 
     modal.modalRoot.unmount();
     modal.modalWrapper.remove();
+    const index = modalStack.indexOf(modal);
+    modalStack.splice(index, 1);
+
+    --ModalHandler.count;
     modal?.onClose?.();
     return modal.modalId;
   },
