@@ -155,6 +155,8 @@
   border-radius: 50%;
   padding: 0;
   flex-shrink: 0;
+  max-width: max-content;
+  max-height: max-content;
 }
 
 .mq-btn:disabled {

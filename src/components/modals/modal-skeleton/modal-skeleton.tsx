@@ -1,21 +1,25 @@
-import type { HtmlHTMLAttributes } from "react";
-import styles from "./styles.module.css";
+import { FocusTrap } from "components/focus-trap";
+import { cloneElement, isValidElement, type HtmlHTMLAttributes } from "react";
 
 interface ModalSkeletonProps
-  extends Pick<
-    HtmlHTMLAttributes<HTMLDivElement>,
-    "className" | "style" | "children"
-  > {}
+  extends Pick<HtmlHTMLAttributes<any>, "className" | "style" | "children"> {
+  onClose?: () => void;
+}
 export const ModalSkeleton = ({
   children,
   className,
   style,
+  onClose,
 }: ModalSkeletonProps) => {
-  const classNames = [styles.app_modal, className].join(" ");
+  const classNames = ["app-modal", className].join(" ");
 
   return (
-    <div className={classNames} style={style}>
-      {children}
-    </div>
+    <FocusTrap options={{ allowOutsideClick: true }}>
+      <div className={classNames} style={style}>
+        {!isValidElement(children)
+          ? children
+          : cloneElement<any>(children, { onClose: onClose })}
+      </div>
+    </FocusTrap>
   );
 };

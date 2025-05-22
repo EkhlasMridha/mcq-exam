@@ -31,9 +31,8 @@ export const ModalHandler = {
 
     const root = createRoot(modalWrapper);
 
-    const backdropClassName = ["modal-backdrop", backdropClassNames]
-      .join(" ")
-      .trim();
+    const backdropClassName = ["modal-backdrop", backdropClassNames];
+    showBackdrop && backdropClassName.unshift("modal-mask");
 
     const closeModal = (id: string) => {
       this.close(id);
@@ -44,17 +43,14 @@ export const ModalHandler = {
       <div
         className={classNames}
         style={{ zIndex: this.baseModalZIndex + this.count }}
-        onClick={() => maskClose && closeModal(modalId)}
       >
-        {showBackdrop && (
-          <div className={backdropClassName} style={backdropStyles} />
-        )}
         <div
-          style={{ zIndex: this.baseModalZIndex + (this.count + 1) }}
-          onClick={(event) => event.stopPropagation()}
-        >
-          {cloneElement(component, { onClose: () => closeModal(modalId) })}
-        </div>
+          className={backdropClassName.join(" ").trim()}
+          style={backdropStyles}
+          onClick={() => maskClose && closeModal(modalId)}
+        />
+
+        {cloneElement(component, { onClose: () => closeModal(modalId) })}
       </div>
     );
     ++ModalHandler.count;

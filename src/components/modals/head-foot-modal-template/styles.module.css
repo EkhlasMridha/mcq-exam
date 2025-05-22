@@ -1,0 +1,36 @@
+.app_modal_template {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.modal_head {
+  flex: 0 1 auto;
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-400);
+}
+
+.modal_head h2 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.modal_foot {
+  flex: 0 1 auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-400);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal_body {
+  max-height: 100%;
+  overflow: auto;
+  padding: 12px 0px;
+}
