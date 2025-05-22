@@ -22,3 +22,7 @@ export interface ModalStackType
   initiateClose: () => void;
   closeDelayInMs: number;
 }
+export interface ModalContentParams {
+  backdropClassName?: string;
+  isClosing?: boolean;
+}

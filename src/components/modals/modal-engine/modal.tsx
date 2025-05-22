@@ -1,6 +1,10 @@
 import { cloneElement } from "react";
 import { createRoot } from "react-dom/client";
-import type { ModalStackType, RenderModalProps } from "./types";
+import type {
+  ModalContentParams,
+  ModalStackType,
+  RenderModalProps,
+} from "./types";
 import { generateModalId } from "./utils";
 
 let modalRoot: HTMLElement | null = document.getElementById("modal_root");
@@ -8,7 +12,7 @@ let modalStack: ModalStackType[] = [];
 
 export const ModalHandler = {
   count: 0,
-  baseModalZIndex: 9999999999,
+  baseModalZIndex: 1000000,
   renderModal({
     component,
     backdropClassNames,
@@ -41,10 +45,13 @@ export const ModalHandler = {
     const classNames = ["modal-container", className].join(" ");
     const modalIndex = this.baseModalZIndex + this.count;
 
-    const modal = (
+    const getModalContent = ({
+      backdropClassName,
+      isClosing = false,
+    }: ModalContentParams) => (
       <div className={classNames} style={{ zIndex: modalIndex }}>
         <div
-          className={backdropClassName.join(" ").trim()}
+          className={backdropClassName}
           style={backdropStyles}
           onClick={() => maskClose && closeModal(modalId)}
         />
@@ -52,7 +59,7 @@ export const ModalHandler = {
         {cloneElement(component, {
           onClose: () => closeModal(modalId),
           modalId: modalId,
-          isClosing: false,
+          isClosing: isClosing,
         })}
       </div>
     );
@@ -69,26 +76,17 @@ export const ModalHandler = {
       initiateClose: () => {
         backdropClassName.shift();
         backdropClassName.unshift("close");
-        const modal = (
-          <div className={classNames} style={{ zIndex: modalIndex }}>
-            <div
-              className={backdropClassName.join(" ").trim()}
-              style={backdropStyles}
-              onClick={() => maskClose && closeModal(modalId)}
-            />
-
-            {cloneElement(component, {
-              onClose: () => closeModal(modalId),
-              modalId: modalId,
-              isClosing: true,
-            })}
-          </div>
-        );
+        const modal = getModalContent({
+          backdropClassName: backdropClassName.join(" ").trim(),
+          isClosing: true,
+        });
 
         root.render(modal);
       },
     });
-    root.render(modal);
+    root.render(
+      getModalContent({ backdropClassName: backdropClassName.join(" ").trim() })
+    );
 
     return modalId;
   },
