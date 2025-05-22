@@ -1,0 +1,45 @@
+.confirmation_modal {
+  display: flex;
+  flex-direction: column;
+  min-width: 540px;
+}
+
+.confirmation_content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+.confirmation_content h2 {
+  margin: 0;
+  font-size: var(--font-size-xl);
+  color: #242424;
+}
+.confirmation_content p {
+  color: var(--gray-700);
+  font-size: var(--font-size);
+  margin: 0;
+  margin-top: 4px;
+}
+.icon_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.icon_container svg {
+  height: 44px;
+  max-width: max-content;
+}
+
+.confirmation_actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 14px 8px 8px 0px;
+}
+
+.close_icon_container {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -26,3 +26,9 @@ export interface ModalContentParams {
   backdropClassName?: string;
   isClosing?: boolean;
 }
+
+export interface DestroyOrCloseParams {
+  closeInfoEmit?: boolean;
+  modal: ModalStackType;
+  destroy?: boolean;
+}

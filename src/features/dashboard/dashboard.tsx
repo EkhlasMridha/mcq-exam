@@ -1,18 +1,18 @@
 import { Button } from "components/button";
-import { openTemplateModal } from "components/modals/modal-store";
-import { ModalTest } from "./modal-test";
+import { openConfirmationModal } from "components/modals/modal-store";
 
 export const Dashboard = () => {
   const onOpenModal = () => {
-    openTemplateModal({
-      // showBackdrop: false,
-      component: <ModalTest />,
-      style: {
-        width: "100%",
-        maxWidth: "600px",
-      },
-      templateConfig: {
-        header: "My modal",
+    openConfirmationModal({
+      maskClose: false,
+      confirmationConfig: {
+        titleText: "Are your sure to continue?",
+        description: "Once done there will be no way back.",
+        cancelText: "Not now",
+        confirmText: "Confirm",
+        onConfirm: () => {
+          console.log("confirm");
+        },
       },
     });
   };

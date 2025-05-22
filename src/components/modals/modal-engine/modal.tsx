@@ -1,6 +1,7 @@
 import { cloneElement } from "react";
 import { createRoot } from "react-dom/client";
 import type {
+  DestroyOrCloseParams,
   ModalContentParams,
   ModalStackType,
   RenderModalProps,
@@ -91,8 +92,12 @@ export const ModalHandler = {
     return modalId;
   },
 
-  destroyOrClose(modal: ModalStackType, destroy: boolean = false) {
-    modal.initiateClose();
+  destroyOrClose({
+    destroy = false,
+    modal,
+    closeInfoEmit = true,
+  }: DestroyOrCloseParams) {
+    closeInfoEmit && modal.initiateClose();
     modal.visible = false;
 
     setTimeout(() => {
@@ -119,7 +124,7 @@ export const ModalHandler = {
     }
 
     if (!modal) return null;
-    this.destroyOrClose(modal);
+    this.destroyOrClose({ modal });
 
     return modal.modalId;
   },
@@ -127,7 +132,7 @@ export const ModalHandler = {
   destroy(id: string) {
     const modal = modalStack.find((a) => a.modalId === id);
     if (!modal) return null;
-    this.destroyOrClose(modal, true);
+    this.destroyOrClose({ modal, destroy: true });
 
     return modal.modalId;
   },
@@ -138,6 +143,12 @@ export const ModalHandler = {
         this.close(modalStack[i]);
         break;
       }
+    }
+  },
+
+  clearAll() {
+    for (const modal of modalStack) {
+      this.destroyOrClose({ modal, closeInfoEmit: false, destroy: true });
     }
   },
 };

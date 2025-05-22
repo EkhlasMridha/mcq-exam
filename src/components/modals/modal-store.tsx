@@ -1,7 +1,12 @@
+import { ConfirmationModal } from "./confirmation-modal";
 import { HeadFootModalTemplate } from "./head-foot-modal-template";
 import { ModalHandler } from "./modal-engine";
 import { ModalSkeleton } from "./modal-skeleton";
-import type { OpenModalParams, OpenTemplateModalParams } from "./types";
+import type {
+  OpenConfirmationModalParams,
+  OpenModalParams,
+  OpenTemplateModalParams,
+} from "./types";
 
 export function openModal({
   component,
@@ -44,6 +49,33 @@ export function openTemplateModal({
       />
     ),
     className: "modal-center",
+  });
+
+  return {
+    closeModal: () => ModalHandler.close(modalId),
+    modalId,
+    destroy: () => ModalHandler.destroy(modalId),
+  };
+}
+
+export function openConfirmationModal({
+  className,
+  confirmationConfig,
+  style,
+  ...restProps
+}: OpenConfirmationModalParams) {
+  const modalId = ModalHandler.renderModal({
+    component: (
+      <ConfirmationModal
+        className={className}
+        style={style}
+        {...confirmationConfig}
+      />
+    ),
+    ...restProps,
+    backdropClassNames: "mask-animation",
+    className: "modal-center",
+    closeDelayInMs: 300,
   });
 
   return {
