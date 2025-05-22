@@ -4,6 +4,7 @@ import { CloseIcon, ErrorIcon, InfoIcon, WarnIcon } from "components/icons";
 import type { ModalInjectedProps } from "../types";
 import styles from "./styles.module.css";
 import type { ConfirmationModalProps, ConfirmationModalVariant } from "./types";
+import { FocusTrap } from "components/focus-trap";
 
 export const ConfirmationModal = (props: ConfirmationModalProps) => {
   const {
@@ -59,47 +60,51 @@ export const ConfirmationModal = (props: ConfirmationModalProps) => {
   };
 
   return (
-    <div
-      role="modal"
-      className={classNames}
-      style={style}
-      data-open={!isClosing}
-    >
-      <div className={styles.close_icon_container}>
-        <Button
-          size="large"
-          shape="circle"
-          variant="ghost"
-          color="error"
-          icon={<CloseIcon />}
-        />
-      </div>
-      <div className={styles.confirmation_content}>
-        <div className={[styles.icon_container, `color-${variant}`].join(" ")}>
-          {icon || <Icon />}
+    <FocusTrap options={{ allowOutsideClick: true }}>
+      <div
+        role="modal"
+        className={classNames}
+        style={style}
+        data-open={!isClosing}
+      >
+        <div className={styles.close_icon_container}>
+          <Button
+            size="large"
+            shape="circle"
+            variant="ghost"
+            color="error"
+            icon={<CloseIcon />}
+          />
         </div>
-        <h2>{titleText}</h2>
-        <p>{description}</p>
-      </div>
-      {!hideCancel && !hideConfirm && (
-        <div className={styles.confirmation_actions}>
-          {!hideCancel && (
-            <Button
-              variant="outline"
-              size="large"
-              color={buttonColor}
-              onClick={onClickCancel}
-            >
-              {cancelText}
-            </Button>
-          )}
-          {!hideConfirm && (
-            <Button size="large" color={buttonColor} onClick={onClickConfirm}>
-              {confirmText}
-            </Button>
-          )}
+        <div className={styles.confirmation_content}>
+          <div
+            className={[styles.icon_container, `color-${variant}`].join(" ")}
+          >
+            {icon || <Icon />}
+          </div>
+          <h2>{titleText}</h2>
+          <p>{description}</p>
         </div>
-      )}
-    </div>
+        {!hideCancel && !hideConfirm && (
+          <div className={styles.confirmation_actions}>
+            {!hideCancel && (
+              <Button
+                variant="outline"
+                size="large"
+                color={buttonColor}
+                onClick={onClickCancel}
+              >
+                {cancelText}
+              </Button>
+            )}
+            {!hideConfirm && (
+              <Button size="large" color={buttonColor} onClick={onClickConfirm}>
+                {confirmText}
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    </FocusTrap>
   );
 };
