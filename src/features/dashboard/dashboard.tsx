@@ -1,7 +1,6 @@
 import { Button } from "components/button";
-import { openModal } from "components/modals";
-import { ModalTest } from "./modal-test";
 import { openTemplateModal } from "components/modals/modal-store";
+import { ModalTest } from "./modal-test";
 
 export const Dashboard = () => {
   const onOpenModal = () => {
