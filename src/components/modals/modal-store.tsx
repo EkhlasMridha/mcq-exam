@@ -33,6 +33,8 @@ export function openTemplateModal({
 }: OpenTemplateModalParams) {
   const modalId = ModalHandler.renderModal({
     ...restParams,
+    backdropClassNames: "mask-animation",
+    closeDelayInMs: 300,
     component: (
       <HeadFootModalTemplate
         children={component}

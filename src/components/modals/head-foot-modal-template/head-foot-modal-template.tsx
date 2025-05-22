@@ -4,6 +4,7 @@ import { cloneElement, isValidElement, type MouseEvent } from "react";
 import styles from "./styles.module.css";
 import type { HeadFootModalTemplateProps } from "./types";
 import { FocusTrap } from "components/focus-trap";
+import type { ModalInjectedProps } from "../types";
 
 export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
   const {
@@ -22,7 +23,9 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
     hideSecondaryButton,
     closeOnPrimaryClick,
     closeOnSecondaryClick = true,
-  } = props as HeadFootModalTemplateProps & { onClose: () => void };
+    isClosing,
+  } = props as HeadFootModalTemplateProps & ModalInjectedProps;
+
   const {
     name: primaryBtnName = "Done",
     variant = "outline",
@@ -36,9 +39,12 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
     ...secondaryBtnProps
   } = secondaryButtonProps || {};
 
-  const classNames = ["app-modal", styles.app_modal_template, className].join(
-    " "
-  );
+  const classNames = [
+    "app-modal",
+    "modal-animation",
+    styles.app_modal_template,
+    className,
+  ].join(" ");
   const modalHeader = typeof header === "string" ? <h2>{header}</h2> : header;
 
   const onSecondaryBtnClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -56,13 +62,18 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
         allowOutsideClick: true,
       }}
     >
-      <div role="modal" className={classNames} style={style}>
+      <div
+        role="modal"
+        className={classNames}
+        style={style}
+        data-open={!isClosing}
+      >
         <div className={[styles.modal_head, headerClassNames].join(" ")}>
           {modalHeader}
           <Button
             role="close"
             variant="ghost"
-            size="small"
+            size="medium"
             color="error"
             shape="circle"
             icon={<CloseIcon />}
@@ -81,6 +92,7 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
             <Button
               role="button"
               variant="outline"
+              size="large"
               onClick={onSecondaryBtnClick}
               {...secondaryBtnProps}
             >
@@ -91,6 +103,7 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
             <Button
               role="button"
               onClick={onPrimaryBtnClick}
+              size="large"
               {...primaryBtnProps}
             >
               {primaryBtnName}

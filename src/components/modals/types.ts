@@ -8,7 +8,8 @@ export interface OpenModalParams
   component: ReactNode;
 }
 export interface ModalInjectedProps {
-  onClose?: () => void;
+  onClose: () => void;
+  isClosing: boolean;
 }
 
 export interface OpenTemplateModalParams extends OpenModalParams {

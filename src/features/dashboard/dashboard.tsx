@@ -5,10 +5,11 @@ import { ModalTest } from "./modal-test";
 export const Dashboard = () => {
   const onOpenModal = () => {
     openTemplateModal({
-      maskClose: false,
+      // showBackdrop: false,
       component: <ModalTest />,
       style: {
         width: "100%",
+        maxWidth: "600px",
       },
       templateConfig: {
         header: "My modal",

@@ -1,7 +1,7 @@
+import { cloneElement } from "react";
 import { createRoot } from "react-dom/client";
 import type { ModalStackType, RenderModalProps } from "./types";
 import { generateModalId } from "./utils";
-import { cloneElement } from "react";
 
 let modalRoot: HTMLElement | null = document.getElementById("modal_root");
 let modalStack: ModalStackType[] = [];
@@ -18,6 +18,7 @@ export const ModalHandler = {
     onClose,
     showBackdrop = true,
     className,
+    closeDelayInMs = 200,
   }: RenderModalProps) {
     if (!modalRoot) {
       modalRoot = document.createElement("div");
@@ -31,26 +32,28 @@ export const ModalHandler = {
 
     const root = createRoot(modalWrapper);
 
-    const backdropClassName = ["modal-backdrop", backdropClassNames];
+    const backdropClassName = ["open", "modal-backdrop", backdropClassNames];
     showBackdrop && backdropClassName.unshift("modal-mask");
 
     const closeModal = (id: string) => {
       this.close(id);
     };
     const classNames = ["modal-container", className].join(" ");
+    const modalIndex = this.baseModalZIndex + this.count;
 
     const modal = (
-      <div
-        className={classNames}
-        style={{ zIndex: this.baseModalZIndex + this.count }}
-      >
+      <div className={classNames} style={{ zIndex: modalIndex }}>
         <div
           className={backdropClassName.join(" ").trim()}
           style={backdropStyles}
           onClick={() => maskClose && closeModal(modalId)}
         />
 
-        {cloneElement(component, { onClose: () => closeModal(modalId) })}
+        {cloneElement(component, {
+          onClose: () => closeModal(modalId),
+          modalId: modalId,
+          isClosing: false,
+        })}
       </div>
     );
     ++ModalHandler.count;
@@ -61,11 +64,52 @@ export const ModalHandler = {
       destroyOnClose,
       visible: true,
       modalWrapper,
+      closeDelayInMs,
       onClose,
+      initiateClose: () => {
+        backdropClassName.shift();
+        backdropClassName.unshift("close");
+        const modal = (
+          <div className={classNames} style={{ zIndex: modalIndex }}>
+            <div
+              className={backdropClassName.join(" ").trim()}
+              style={backdropStyles}
+              onClick={() => maskClose && closeModal(modalId)}
+            />
+
+            {cloneElement(component, {
+              onClose: () => closeModal(modalId),
+              modalId: modalId,
+              isClosing: true,
+            })}
+          </div>
+        );
+
+        root.render(modal);
+      },
     });
     root.render(modal);
 
     return modalId;
+  },
+
+  destroyOrClose(modal: ModalStackType, destroy: boolean = false) {
+    modal.initiateClose();
+    modal.visible = false;
+
+    setTimeout(() => {
+      modal?.onClose?.();
+      if (!modal.destroyOnClose && !destroy) {
+        modal.modalWrapper.style.display = "none";
+      } else {
+        modal.modalRoot.unmount();
+        modal.modalWrapper.remove();
+        const index = modalStack.indexOf(modal);
+        modalStack.splice(index, 1);
+      }
+    }, modal.closeDelayInMs);
+
+    --ModalHandler.count;
   },
 
   close(id: string | ModalStackType) {
@@ -77,43 +121,25 @@ export const ModalHandler = {
     }
 
     if (!modal) return null;
+    this.destroyOrClose(modal);
 
-    if (!modal.destroyOnClose) {
-      modal.visible = false;
-      modal.modalWrapper.style.display = "none";
-    } else {
-      modal.modalRoot.unmount();
-      modal.modalWrapper.remove();
-      const index = modalStack.indexOf(modal);
-      modalStack.splice(index, 1);
-    }
-    --ModalHandler.count;
-    modal?.onClose?.();
     return modal.modalId;
   },
 
   destroy(id: string) {
     const modal = modalStack.find((a) => a.modalId === id);
     if (!modal) return null;
+    this.destroyOrClose(modal, true);
 
-    modal.modalRoot.unmount();
-    modal.modalWrapper.remove();
-    const index = modalStack.indexOf(modal);
-    modalStack.splice(index, 1);
-
-    --ModalHandler.count;
-    modal?.onClose?.();
     return modal.modalId;
   },
 
   closeTop() {
-    let modalId: string | null = null;
-    for (let i = 0; i < modalStack.length; --i) {
+    for (let i = modalStack.length - 1; i >= 0; --i) {
       if (modalStack[i].visible) {
-        modalId = this.close(modalStack[i]);
+        this.close(modalStack[i]);
         break;
       }
     }
-    return modalId;
   },
 };

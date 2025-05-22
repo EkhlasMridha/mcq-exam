@@ -10,6 +10,7 @@ export interface RenderModalProps {
   destroyOnClose?: boolean;
   maskClose?: boolean;
   className?: string;
+  closeDelayInMs?: number;
 }
 
 export interface ModalStackType
@@ -18,4 +19,6 @@ export interface ModalStackType
   modalRoot: Root;
   visible?: boolean;
   modalWrapper: HTMLElement;
+  initiateClose: () => void;
+  closeDelayInMs: number;
 }

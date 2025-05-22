@@ -23,7 +23,7 @@
   z-index: -1;
 }
 .modal-mask {
-  background-color: #2424243f;
+  background-color: var(--backdrop-color);
 }
 
 .modal-center {
@@ -46,4 +46,54 @@
   justify-content: center;
   align-items: center;
   pointer-events: none;
+}
+
+/** popup animations */
+.open.mask-animation {
+  opacity: 0;
+  animation: maskOpen 0.2s ease-in forwards;
+}
+.close.mask-animation {
+  opacity: 1;
+  animation: maskOpen 0.25s ease-out reverse forwards;
+}
+
+@keyframes maskOpen {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.modal-animation[data-open="true"] {
+  opacity: 0;
+  animation: modalOpen 0.3s cubic-bezier(0.51, 0.92, 0.24, 1.15) forwards;
+}
+.modal-animation[data-open="false"] {
+  opacity: 1;
+  animation: modalClose 0.2s ease-out forwards;
+}
+
+@keyframes modalClose {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
+@keyframes modalOpen {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
