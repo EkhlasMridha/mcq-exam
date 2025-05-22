@@ -60,6 +60,11 @@
   --border-color: var(--gray-500);
   --border-color-dark: var(--gray-600);
 
+  --modal-box-shadow: 0 0 48px 4px var(--gray-500);
+  --modal-padding: 14px;
+  --modal-radius: 12px;
+  --backdrop-color: #343a402c;
+
   --input-focus-color: #00796b29;
   --input-focus-color-error: #dc354627;
   --input-focus-highlight: 0 0 2px 2px var(--input-focus-color);
@@ -76,7 +81,7 @@
   --font-size-xs: 12px;
   --font-size: 16px;
   --font-size-lg: 18px;
-  --font-size-xl: 22px;
+  --font-size-xl: 26px;
 
   --font-weight: 400;
   --font-weight-medium: 500;

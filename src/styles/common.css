@@ -38,3 +38,13 @@ body {
 .items-start {
   align-items: flex-start;
 }
+
+.color-info {
+  color: var(--secondary-600);
+}
+.color-warn {
+  color: var(--warn-600);
+}
+.color-error {
+  color: var(--error-500);
+}

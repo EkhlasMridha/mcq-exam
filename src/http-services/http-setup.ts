@@ -1,15 +1,26 @@
-import axios from "axios";
+import axios, { type AxiosRequestConfig, type Method } from "axios";
 import { APP_ENV } from "constants/app.env";
 import { ACESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from "constants/common.const";
 import { jwtDecode } from "jwt-decode";
 import type { AccessTokenData } from "types/auth";
 import { refreshAccessToken } from "./auth-service";
 import { clearTokens } from "utils/jwt-helpers";
+import type { ApiResponseType } from "types/common";
+
+interface TypedRequestConfig extends Omit<AxiosRequestConfig, "method"> {
+  method: Method;
+}
 
 let refreshPromise: Promise<string> | null = null;
-export const httpClient = axios.create({
+const httpClient = axios.create({
   baseURL: APP_ENV.apiBaseUrl,
 });
+
+export const axiosRequest = <T>(
+  config: TypedRequestConfig
+): Promise<ApiResponseType<T>> => {
+  return httpClient.request(config).then((res) => res?.data);
+};
 
 httpClient.interceptors.request.use(async (config) => {
   const baseURL = config.baseURL ?? "";

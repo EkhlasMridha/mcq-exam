@@ -1,6 +1,6 @@
 import type { DetailedHTMLProps, HTMLAttributes } from "react";
 
-interface TableRowProps<T>
+interface TableRowProps
   extends DetailedHTMLProps<
     HTMLAttributes<HTMLTableRowElement>,
     HTMLTableRowElement
@@ -8,11 +8,11 @@ interface TableRowProps<T>
   dataRowIndex: number;
 }
 
-export const TableRow = <T extends any>({
+export const TableRow = ({
   children,
   dataRowIndex,
   ...restProps
-}: TableRowProps<T>) => {
+}: TableRowProps) => {
   return (
     <tr {...restProps} data-index={dataRowIndex}>
       {children}
