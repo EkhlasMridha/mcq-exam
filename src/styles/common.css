@@ -48,3 +48,7 @@ body {
 .color-error {
   color: var(--error-500);
 }
+
+.relative {
+  position: relative;
+}

@@ -3,3 +3,6 @@ export interface ApiResponseType<T> {
   message: string;
   status: number;
 }
+export interface ControlProps {
+  isError?: boolean;
+}

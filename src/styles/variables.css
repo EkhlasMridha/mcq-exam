@@ -99,4 +99,6 @@
   --radioinput-dim-sm: 16px;
   --radioinput-dim-md: 20px;
   --radioinput-dim-lg: 25px;
+
+  --popup-zindex: 999999;
 }
