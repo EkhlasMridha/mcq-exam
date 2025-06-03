@@ -9,6 +9,7 @@ export function DropdownOptions<T extends ValueType>({
   onSelectItem,
   isClosing,
   focusIndex,
+  value,
 }: DropdownOptionsProps<T>) {
   const handleItemClick = (event: MouseEvent<HTMLDivElement>) => {
     const eventTarget = event.target as HTMLDivElement;
@@ -41,6 +42,7 @@ export function DropdownOptions<T extends ValueType>({
             data-value={option?.value}
             data-disabled={option?.disabled}
             data-focus={focusIndex === index}
+            data-selected={value === option?.value}
           >
             {option.label}
           </div>

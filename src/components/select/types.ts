@@ -35,4 +35,5 @@ export interface DropdownOptionsProps<T extends ValueType>
   onSelectItem: (item: DropdownOptionType<T>) => void;
   isClosing?: boolean;
   focusIndex?: number;
+  value?: ValueType;
 }

@@ -8,6 +8,7 @@ import {
 import { DropdownOptions } from "./dropdown-options";
 import styles from "./select.module.css";
 import type { DropdownOptionType, SelectProps, ValueType } from "./types";
+import { useThrottle } from "./useThrottle";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
@@ -27,10 +28,9 @@ export function Select<T extends ValueType>({
   const [filteredOptions, setFilteredOptions] = useState(options || []);
   const [dropdownAbove, setDropdownAbove] = useState(false);
   const [dropdownStyle, setDropdownStyle] = useState({});
-  const [focusedIndex, setFocusedIndex] = useState(() => {
-    const currentIndex = (options ?? []).findIndex((a) => a.value === value);
-    return currentIndex < 0 ? 0 : currentIndex;
-  });
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+
+  const [selectedItem, setSelectedItem] = useState(value);
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   let delayTimer: NodeJS.Timeout;
@@ -132,9 +132,11 @@ export function Select<T extends ValueType>({
     }
   };
 
+  const throttledHandleKeyboardNav = useThrottle(handleKeyDown, 150);
+
   function onSelectItem(item: DropdownOptionType<T>) {
-    console.log(item);
     onChange?.(item?.value);
+    setSelectedItem(item.value);
   }
 
   return (
@@ -145,7 +147,7 @@ export function Select<T extends ValueType>({
         placeholder={placeholder}
         className={inputClassNames}
         onClick={toggleDropdown}
-        onKeyDown={handleKeyDown}
+        onKeyDown={throttledHandleKeyboardNav}
         onBlur={handleBlur}
         role="combobox"
         aria-haspopup="listbox"
@@ -160,6 +162,7 @@ export function Select<T extends ValueType>({
           onSelectItem={onSelectItem}
           focusIndex={focusedIndex}
           isClosing={isClosing}
+          value={selectedItem}
         />
       )}
     </div>
