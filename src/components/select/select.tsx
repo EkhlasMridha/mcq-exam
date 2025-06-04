@@ -6,9 +6,10 @@ import {
   type MouseEvent,
 } from "react";
 import { DropdownOptions } from "./dropdown-options";
+import { useDropdownNavEngine } from "./hooks/useDropdownNavEngine";
+import { useThrottle } from "./hooks/useThrottle";
 import styles from "./select.module.css";
 import type { DropdownOptionType, SelectProps, ValueType } from "./types";
-import { useThrottle } from "./useThrottle";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
@@ -29,6 +30,7 @@ export function Select<T extends ValueType>({
   const [dropdownAbove, setDropdownAbove] = useState(false);
   const [dropdownStyle, setDropdownStyle] = useState({});
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const previousKeyboardEvent = useRef<string>(null);
 
   const [selectedItem, setSelectedItem] = useState(value);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -52,6 +54,8 @@ export function Select<T extends ValueType>({
   function isInFocus() {
     return document.activeElement === inputRef.current;
   }
+
+  const navigatorEngine = useDropdownNavEngine(filteredOptions);
 
   function handleToggleDropdown(open: boolean = false) {
     clearTimeout(delayTimer);
@@ -107,6 +111,7 @@ export function Select<T extends ValueType>({
   //     }
   //   }
   // };
+  // console.log(navigableIndexes);
   const maxIndex = filteredOptions.length;
   const dropdownOpenKeys = ["Enter", "ArrowDown"];
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -119,17 +124,29 @@ export function Select<T extends ValueType>({
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setFocusedIndex((prev) => Math.min(prev + 1, maxIndex) % maxIndex || 0);
+      if (previousKeyboardEvent.current !== e.key) {
+        navigatorEngine.syncDownNavigator(
+          focusedIndex >= filteredOptions?.length - 1 ? 0 : focusedIndex + 1
+        );
+      }
+      const index = navigatorEngine.downNavigator.next().value as number;
+      index >= 0 && setFocusedIndex(index);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      const nextIndex = Math.max(focusedIndex - 1, -1);
-      setFocusedIndex(nextIndex < 0 ? maxIndex - 1 : nextIndex);
+      if (previousKeyboardEvent.current !== e.key) {
+        navigatorEngine.syncUpNavigator(
+          focusedIndex <= 0 ? filteredOptions.length - 1 : focusedIndex - 1
+        );
+      }
+      let nextIndex = navigatorEngine.upNavigator.next().value as number;
+      nextIndex >= 0 && setFocusedIndex(nextIndex);
     } else if (e.key === "Enter" && focusedIndex >= 0) {
-      onSelectItem(filteredOptions[focusedIndex]);
+      // onSelectItem(filteredOptions[navigableIndexes[focusedIndex]]);
       !multiple && handleToggleDropdown(false);
     } else if (e.key === "Escape") {
       handleToggleDropdown(false);
     }
+    previousKeyboardEvent.current = e.key;
   };
 
   const throttledHandleKeyboardNav = useThrottle(handleKeyDown, 150);

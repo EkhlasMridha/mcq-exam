@@ -1,6 +1,7 @@
-import { type MouseEvent } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
 import styles from "./select.module.css";
 import type { DropdownOptionsProps, ValueType } from "./types";
+import { ReactCoolScrollbar } from "react-cool-scrollbar";
 
 export function DropdownOptions<T extends ValueType>({
   position,
@@ -8,11 +9,24 @@ export function DropdownOptions<T extends ValueType>({
   width,
   onSelectItem,
   isClosing,
-  focusIndex,
+  focusIndex = -1,
   value,
 }: DropdownOptionsProps<T>) {
-  const handleItemClick = (event: MouseEvent<HTMLDivElement>) => {
-    const eventTarget = event.target as HTMLDivElement;
+  const dropdownRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (focusIndex < 0) return;
+    const element = dropdownRef.current?.querySelector<HTMLLIElement>(
+      `[data-index="${focusIndex}"]`
+    );
+    element?.scrollIntoView({
+      block: "nearest",
+      behavior: "smooth",
+    });
+  }, [focusIndex]);
+
+  const handleItemClick = (event: MouseEvent<HTMLUListElement>) => {
+    const eventTarget = event.target as HTMLLIElement;
     const value = eventTarget.getAttribute("data-value") as ValueType;
     const valueItem = options?.find((a) => a.value === value);
 
@@ -24,7 +38,8 @@ export function DropdownOptions<T extends ValueType>({
   isClosing && classNames.push(styles.close);
 
   return (
-    <div
+    <ul
+      ref={dropdownRef}
       style={{
         inset: "auto",
       }}
@@ -34,7 +49,7 @@ export function DropdownOptions<T extends ValueType>({
     >
       {!!options?.length ? (
         options?.map((option, index) => (
-          <div
+          <li
             key={option.value}
             id={`option-${option.value}`}
             role="option"
@@ -43,13 +58,14 @@ export function DropdownOptions<T extends ValueType>({
             data-disabled={option?.disabled}
             data-focus={focusIndex === index}
             data-selected={value === option?.value}
+            data-index={index}
           >
             {option.label}
-          </div>
+          </li>
         ))
       ) : (
         <div className={styles.no_data}>No options found</div>
       )}
-    </div>
+    </ul>
   );
 }

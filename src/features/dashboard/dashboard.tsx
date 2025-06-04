@@ -1,7 +1,8 @@
 import { Select } from "components/select";
+import type { DropdownOptionType } from "components/select/types";
 
 export const Dashboard = () => {
-  const options = [
+  const options: DropdownOptionType<string>[] = [
     {
       label: "Elephant",
       value: "elephant",
@@ -9,6 +10,7 @@ export const Dashboard = () => {
     {
       label: "Deer",
       value: "deer",
+      disabled: true,
     },
     {
       label: "Panda",
@@ -17,6 +19,30 @@ export const Dashboard = () => {
     {
       label: "Tiger",
       value: "tiger",
+    },
+    {
+      label: "Liger",
+      value: "Liger",
+    },
+    {
+      label: "Bear",
+      value: "Bear",
+    },
+    {
+      label: "Frog",
+      value: "Frog",
+    },
+    {
+      label: "Fox",
+      value: "Fox",
+    },
+    {
+      label: "Hyena",
+      value: "Hyena",
+    },
+    {
+      label: "Giraffe",
+      value: "Giraffe",
     },
   ];
   return (
