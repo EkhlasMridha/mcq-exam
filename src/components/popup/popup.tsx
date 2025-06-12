@@ -187,17 +187,12 @@ export const Popup = ({
 
   if (hoverToShow) {
     // Compatible with old browser which not support pointer event
-    wrapperAction<React.MouseEvent>(
-      "onMouseEnter",
-      true,
-      openDelay,
-      (event) => {}
-    );
+    wrapperAction<React.MouseEvent>("onMouseEnter", true, openDelay, () => {});
     wrapperAction<React.PointerEvent>(
       "onPointerEnter",
       true,
       openDelay,
-      (event) => {}
+      () => {}
     );
     onPopupMouseEnter = (event) => {
       // Only trigger re-open when popup is visible
@@ -229,7 +224,7 @@ export const Popup = ({
 
   // ==================== Action: ContextMenu =====================
   if (showActions.has("contextMenu")) {
-    cloneProps.onContextMenu = (event: React.MouseEvent, ...args: any[]) => {
+    cloneProps.onContextMenu = (event: React.MouseEvent) => {
       if (hideActions.has("contextMenu")) {
         triggerPopup(!isOpen, openDelay);
       }
