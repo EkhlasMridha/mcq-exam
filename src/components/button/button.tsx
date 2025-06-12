@@ -9,6 +9,7 @@ export const Button = ({
   icon,
   loading,
   className,
+  iconPosition = "start",
   ...restProps
 }: ButtonProps) => {
   const classNames = [
@@ -22,10 +23,14 @@ export const Button = ({
   !!icon && classNames.unshift("mq-btn-icon");
   const flattenedClassNames = classNames.join(" ").trim();
 
+  const contents = [icon, children].filter(Boolean);
+  if (iconPosition === "end") {
+    contents.reverse();
+  }
+
   return (
     <button className={flattenedClassNames} {...restProps}>
-      {icon}
-      {children}
+      {contents}
     </button>
   );
 };

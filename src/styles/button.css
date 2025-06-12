@@ -11,6 +11,7 @@
   touch-action: manipulation;
   cursor: pointer;
   border: none;
+  white-space: nowrap;
 }
 
 .mq-btn::before,

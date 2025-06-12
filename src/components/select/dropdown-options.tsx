@@ -1,18 +1,28 @@
-import { useEffect, useRef, type MouseEvent } from "react";
+import { mergeRefs } from "components/utils";
+import {
+  forwardRef,
+  useEffect,
+  useRef,
+  type MouseEvent,
+  type Ref,
+} from "react";
 import styles from "./select.module.css";
 import type { DropdownOptionsProps, ValueType } from "./types";
-import { ReactCoolScrollbar } from "react-cool-scrollbar";
 
-export function DropdownOptions<T extends ValueType>({
-  position,
-  options,
-  width,
-  onSelectItem,
-  isClosing,
-  focusIndex = -1,
-  value,
-}: DropdownOptionsProps<T>) {
+const DropdownOptionsWithoutForwardRef = <T extends ValueType>(
+  {
+    position,
+    options,
+    onSelectItem,
+    isClosing,
+    focusIndex = -1,
+    value,
+  }: DropdownOptionsProps<T>,
+  ref: Ref<HTMLUListElement>
+) => {
   const dropdownRef = useRef<HTMLUListElement>(null);
+  const mergedRef = mergeRefs(dropdownRef, ref);
+  const { dropdownWidth = 150, posX = 0, posY = 0 } = position || {};
 
   useEffect(() => {
     if (focusIndex < 0) return;
@@ -39,9 +49,10 @@ export function DropdownOptions<T extends ValueType>({
 
   return (
     <ul
-      ref={dropdownRef}
+      ref={mergedRef}
       style={{
-        inset: "auto",
+        inset: `${posY}px auto auto ${posX}px`,
+        width: dropdownWidth,
       }}
       className={classNames.join(" ")}
       role="listbox"
@@ -68,4 +79,6 @@ export function DropdownOptions<T extends ValueType>({
       )}
     </ul>
   );
-}
+};
+
+export const DropdownOptions = forwardRef(DropdownOptionsWithoutForwardRef);
