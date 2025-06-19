@@ -138,8 +138,8 @@ export const Popup = ({
       const { x, y, alignment } = getAdjustedCoordinates({
         parsedCoordinates: parsedCoordinates,
         startIndex: 0,
-        popupRect: popupRef.current.getBoundingClientRect(),
-        targetRect: childRef.current.getBoundingClientRect(),
+        popupElm: popupRef.current,
+        targetElm: childRef.current,
         align,
         offset,
       });

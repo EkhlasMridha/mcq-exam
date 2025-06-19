@@ -25,15 +25,22 @@ export interface SelectProps<V extends ValueType> extends ControlProps {
 
 export interface DropdownOptionsProps<T extends ValueType>
   extends Pick<SelectProps<T>, "options"> {
-  position?: DropdownPosition;
   onSelectItem: (item: DropdownOptionType<T>) => void;
   isClosing?: boolean;
   focusIndex?: number;
   value?: ValueType;
 }
 export interface DropdownPosition {
-  posX: number;
-  posY: number;
+  x: number;
+  y: number;
   dropdownWidth: number;
+  placement: DropdownPlacement;
 }
 export type DropdownCloseReason = "outside" | "choose" | "toogle";
+export type DropdownPlacement = "top" | "bottom";
+export interface CalculateDropdownPositionParams {
+  dropdownElm: HTMLElement;
+  selectElm: HTMLElement;
+  offset?: number;
+  nextPlacementIndex?: number;
+}

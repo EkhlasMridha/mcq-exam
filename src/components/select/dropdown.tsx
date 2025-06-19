@@ -8,10 +8,10 @@ import {
 } from "react";
 import styles from "./select.module.css";
 import type { DropdownOptionsProps, ValueType } from "./types";
+import { useSelectContext } from "./hooks/useSelectContext";
 
-const DropdownOptionsWithoutForwardRef = <T extends ValueType>(
+const DropdownWithoutForwardRef = <T extends ValueType>(
   {
-    position,
     options,
     onSelectItem,
     isClosing,
@@ -22,7 +22,17 @@ const DropdownOptionsWithoutForwardRef = <T extends ValueType>(
 ) => {
   const dropdownRef = useRef<HTMLUListElement>(null);
   const mergedRef = mergeRefs(dropdownRef, ref);
-  const { dropdownWidth = 150, posX = 0, posY = 0 } = position || {};
+  const context = useSelectContext() || {};
+
+  const classNames = [styles.dropdown_select];
+  !isClosing && classNames.push(styles.open);
+  isClosing && classNames.push(styles.close);
+
+  if (context?.placement === "bottom") {
+    classNames.unshift(styles.placement_bottom);
+  } else if (context?.placement === "top") {
+    classNames.unshift(styles.placement_top);
+  }
 
   useEffect(() => {
     if (focusIndex < 0) return;
@@ -43,17 +53,9 @@ const DropdownOptionsWithoutForwardRef = <T extends ValueType>(
     !!valueItem && onSelectItem(valueItem);
   };
 
-  const classNames = [styles.dropdown_select];
-  !isClosing && classNames.push(styles.open);
-  isClosing && classNames.push(styles.close);
-
   return (
     <ul
       ref={mergedRef}
-      style={{
-        inset: `${posY}px auto auto ${posX}px`,
-        width: dropdownWidth,
-      }}
       className={classNames.join(" ")}
       role="listbox"
       onClick={handleItemClick}
@@ -81,4 +83,4 @@ const DropdownOptionsWithoutForwardRef = <T extends ValueType>(
   );
 };
 
-export const DropdownOptions = forwardRef(DropdownOptionsWithoutForwardRef);
+export const SelectDropdown = forwardRef(DropdownWithoutForwardRef);

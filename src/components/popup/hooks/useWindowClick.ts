@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { getShadowRoot, getWindow } from '../utils';
-import type { UseWindowClickParams } from '../types';
+import { useEffect, useRef } from "react";
+import { getShadowRoot, getWindow } from "../utils";
+import type { UseWindowClickParams } from "../types";
 
 export default function useWindowClick({
   clickToHide,
@@ -24,42 +24,52 @@ export default function useWindowClick({
       };
 
       const onTriggerClose = (e: any) => {
-        if (open && !inPopupOrChild(e.composedPath?.()?.[0] || e.target) && !popupPointerDownRef.current) {
+        if (
+          open &&
+          !inPopupOrChild(e.composedPath?.()?.[0] || e.target) &&
+          !popupPointerDownRef.current
+        ) {
           triggerClose(false);
         }
       };
 
       const win = getWindow(popupEle);
 
-      win?.addEventListener('pointerdown', onPointerDown, true);
-      win?.addEventListener('mousedown', onTriggerClose, true);
-      win?.addEventListener('contextmenu', onTriggerClose, true);
+      win?.addEventListener("pointerdown", onPointerDown, true);
+      win?.addEventListener("mousedown", onTriggerClose, true);
+      win?.addEventListener("contextmenu", onTriggerClose, true);
 
       // shadow root
       const targetShadowRoot = getShadowRoot(targetEle);
       if (targetShadowRoot) {
-        (targetShadowRoot as EventTarget)?.addEventListener('mousedown', onTriggerClose, true);
-        (targetShadowRoot as EventTarget)?.addEventListener('contextmenu', onTriggerClose, true);
+        (targetShadowRoot as EventTarget)?.addEventListener(
+          "mousedown",
+          onTriggerClose,
+          true
+        );
+        (targetShadowRoot as EventTarget)?.addEventListener(
+          "contextmenu",
+          onTriggerClose,
+          true
+        );
       }
 
-      // Warning if target and popup not in same root
-      // if (process.env.NODE_ENV !== 'production') {
-      //   const targetRoot = targetEle?.getRootNode?.();
-      //   const popupRoot = popupEle.getRootNode?.();
-
-      //   warning(
-      //     targetRoot === popupRoot,
-      //     `trigger element and popup element should in same shadow-sm root.`,
-      //   );
-      // }
       const clearEvents = () => {
-        win?.removeEventListener('pointerdown', onPointerDown, true);
-        win?.removeEventListener('mousedown', onTriggerClose, true);
-        win?.removeEventListener('contextmenu', onTriggerClose, true);
+        win?.removeEventListener("pointerdown", onPointerDown, true);
+        win?.removeEventListener("mousedown", onTriggerClose, true);
+        win?.removeEventListener("contextmenu", onTriggerClose, true);
 
         if (targetShadowRoot) {
-          targetShadowRoot.removeEventListener('mousedown', onTriggerClose, true);
-          targetShadowRoot.removeEventListener('contextmenu', onTriggerClose, true);
+          targetShadowRoot.removeEventListener(
+            "mousedown",
+            onTriggerClose,
+            true
+          );
+          targetShadowRoot.removeEventListener(
+            "contextmenu",
+            onTriggerClose,
+            true
+          );
         }
       };
 
@@ -70,7 +80,16 @@ export default function useWindowClick({
         clearEvents();
       };
     }
-  }, [clickToHide, getPopupElement, getTargetElement, inPopupOrChild, open, triggerClose, mask, maskClosable]);
+  }, [
+    clickToHide,
+    getPopupElement,
+    getTargetElement,
+    inPopupOrChild,
+    open,
+    triggerClose,
+    mask,
+    maskClosable,
+  ]);
 
   function onPopupPointerDown() {
     popupPointerDownRef.current = true;

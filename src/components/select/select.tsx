@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type FocusEvent,
@@ -7,17 +8,22 @@ import {
   type MouseEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { DropdownOptions } from "./dropdown-options";
+import { SelectDropdown } from "./dropdown";
 import { useDropdownNavEngine } from "./hooks/useDropdownNavEngine";
 import { useThrottle } from "./hooks/useThrottle";
 import styles from "./select.module.css";
 import type {
   DropdownCloseReason,
   DropdownOptionType,
+  DropdownPlacement,
   DropdownPosition,
   SelectProps,
   ValueType,
 } from "./types";
+import { calculateDropdownPosition } from "./utils";
+import { isDom } from "components/popup/utils";
+import { usePopupWatch } from "components/hooks/usePopupWatch";
+import { SelectContextProvider } from "./hooks/useSelectContext";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
@@ -32,6 +38,7 @@ export function Select<T extends ValueType>({
   isError,
 }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
   const openRef = useRef(false);
   const closeReason = useRef<DropdownCloseReason | null>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
@@ -40,6 +47,10 @@ export function Select<T extends ValueType>({
   const [filteredOptions, setFilteredOptions] = useState(options || []);
   const [dropdownPosition, setDropdownPosition] = useState<DropdownPosition>();
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [dropdownContainer, setDropdownContainer] =
+    useState<HTMLUListElement | null>(null);
+  const [currentPlacement, setCurrentPlacement] =
+    useState<DropdownPlacement>("bottom");
   const previousKeyboardEvent = useRef<string>(null);
 
   const [selectedItem, setSelectedItem] = useState(value);
@@ -63,6 +74,44 @@ export function Select<T extends ValueType>({
 
   const navigatorEngine = useDropdownNavEngine(filteredOptions);
 
+  usePopupWatch({
+    onAlign: () => onAlignDropdown(),
+    onScroll: () => {},
+    open: isRendered,
+    popup: dropdownContainer,
+    target: selectRef.current,
+  });
+
+  useEffect(() => {
+    if (isRendered && openRef.current && dropdownContainer) {
+      toggleDropdownInternal(true);
+      openRef.current = true;
+    }
+  }, [isRendered, dropdownContainer]);
+
+  const setDropdownRef = (node: HTMLUListElement) => {
+    if (isDom(node)) {
+      setDropdownContainer(node);
+      dropdownRef.current = node;
+    }
+  };
+
+  const onAlignDropdown = () => {
+    if (!!dropdownRef.current && !!selectRef.current) {
+      const coordinates = calculateDropdownPosition({
+        dropdownElm: dropdownRef.current,
+        selectElm: selectRef.current,
+        offset: 4,
+      });
+
+      if (!!coordinates) {
+        dropdownRef.current.style.inset = `${coordinates.y}px auto auto ${coordinates.x}px`;
+        dropdownRef.current.style.width = `${coordinates.dropdownWidth}px`;
+        setCurrentPlacement(coordinates?.placement);
+      }
+    }
+  };
+
   function handleToggleDropdown(
     open: boolean = false,
     eventName: "blur" | "toggle" = "toggle"
@@ -74,50 +123,15 @@ export function Select<T extends ValueType>({
       () => {
         setIsOpen(open);
         openRef.current = open;
+        if (!isRendered) {
+          setIsRendered(open);
+        } else {
+          toggleDropdownInternal(open);
+        }
       },
       open ? openDelay : closeDelay
     );
   }
-  useEffect(() => {
-    const positions = calculateDropdownPosition();
-    if (!positions) return;
-
-    setDropdownPosition({ ...positions });
-  }, [isOpen]);
-
-  // useEffect(() => {
-  //   const calculateAndSetPositions = () => {
-  //     const positions = calculateDropdownPosition();
-
-  //     !!positions && setDropdownPosition({ ...positions });
-  //   };
-  //   window.addEventListener("scroll", () => calculateAndSetPositions(), true);
-
-  //   return () => {
-  //     window.removeEventListener(
-  //       "scroll",
-  //       () => calculateAndSetPositions(),
-  //       true
-  //     );
-  //   };
-  // }, []);
-
-  const calculateDropdownPosition = (): DropdownPosition | null => {
-    if (!openRef.current || !selectRef.current || !dropdownRef.current)
-      return null;
-
-    const rect = selectRef.current.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    const above =
-      rect.bottom + dropdownRef.current?.clientHeight > viewportHeight;
-    const positionY = above ? rect.top - rect.height : rect.bottom;
-    console.log(dropdownRef.current.clientHeight);
-    return {
-      dropdownWidth: rect.width,
-      posX: rect.left,
-      posY: positionY,
-    };
-  };
 
   const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -132,17 +146,7 @@ export function Select<T extends ValueType>({
     handleToggleDropdown(!isOpen);
   };
 
-  // const handleAddOption = () => {
-  //   if (onAddOption) {
-  //     const newOption = onAddOption(searchTerm);
-  //     if (newOption) {
-  //       onChange(newOption);
-  //       setSearchTerm("");
-  //       setIsOpen(false);
-  //     }
-  //   }
-  // };
-  const dropdownOpenKeys = ["Enter", "ArrowDown"];
+  const dropdownOpenKeys = ["ArrowDown"];
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     e.stopPropagation();
 
@@ -170,7 +174,7 @@ export function Select<T extends ValueType>({
       let nextIndex = navigatorEngine.upNavigator.next().value as number;
       nextIndex >= 0 && setFocusedIndex(nextIndex);
     } else if (e.key === "Enter" && focusedIndex >= 0) {
-      // onSelectItem(filteredOptions[navigableIndexes[focusedIndex]]);
+      onSelectItem(filteredOptions[focusedIndex]);
       !multiple && handleToggleDropdown(false);
     } else if (e.key === "Escape") {
       handleToggleDropdown(false);
@@ -183,38 +187,57 @@ export function Select<T extends ValueType>({
   function onSelectItem(item: DropdownOptionType<T>) {
     onChange?.(item?.value);
     setSelectedItem(item.value);
+    console.log(item.value);
     inputRef.current?.focus();
   }
 
+  const toggleDropdownInternal = (open: boolean) => {
+    if (!dropdownRef.current) return;
+    if (open) {
+      dropdownRef.current.style.display = "block";
+      dropdownRef.current.style.pointerEvents = "auto";
+      onAlignDropdown();
+    } else {
+      dropdownRef.current.style.display = "none";
+      dropdownRef.current.style.pointerEvents = "none";
+    }
+  };
+
   return (
-    <div className={outlineClassNames.join(" ")} ref={selectRef}>
-      <input
-        ref={inputRef}
-        type="text"
-        placeholder={placeholder}
-        className={inputClassNames}
-        onClick={toggleDropdown}
-        onKeyDown={throttledHandleKeyboardNav}
-        onBlur={handleBlur}
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={isOpen}
-        aria-controls="custom-select-listbox"
-        aria-autocomplete="list"
-      />
-      {isOpen &&
-        createPortal(
-          <DropdownOptions
-            ref={dropdownRef}
-            position={dropdownPosition}
-            options={options}
-            onSelectItem={onSelectItem}
-            focusIndex={focusedIndex}
-            isClosing={isClosing}
-            value={selectedItem}
-          />,
-          document.body
-        )}
-    </div>
+    <SelectContextProvider
+      value={{
+        isOpen,
+        placement: currentPlacement,
+      }}
+    >
+      <div className={outlineClassNames.join(" ")} ref={selectRef}>
+        <input
+          ref={inputRef}
+          type="text"
+          placeholder={placeholder}
+          className={inputClassNames}
+          onClick={toggleDropdown}
+          onKeyDown={throttledHandleKeyboardNav}
+          onBlur={handleBlur}
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-controls="custom-select-listbox"
+          aria-autocomplete="list"
+        />
+        {isRendered &&
+          createPortal(
+            <SelectDropdown
+              ref={setDropdownRef}
+              options={options}
+              onSelectItem={onSelectItem}
+              focusIndex={focusedIndex}
+              isClosing={isClosing}
+              value={selectedItem}
+            />,
+            document.body
+          )}
+      </div>
+    </SelectContextProvider>
   );
 }

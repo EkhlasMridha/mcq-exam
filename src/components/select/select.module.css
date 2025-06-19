@@ -15,7 +15,6 @@
   position: absolute;
   z-index: var(--popup-zindex);
   padding: 0;
-  width: 100%;
   box-sizing: border-box;
   border: 1px solid var(--gray-300);
   margin: 2px 0 0 0;
@@ -23,6 +22,13 @@
   overflow: auto;
   list-style: none;
 }
+.placement_top {
+  transform-origin: bottom;
+}
+.placement_bottom {
+  transform-origin: top;
+}
+
 .open {
   animation: animateDropdown 0.2s cubic-bezier(0.51, 0.92, 0.24, 1.15) forwards;
 }

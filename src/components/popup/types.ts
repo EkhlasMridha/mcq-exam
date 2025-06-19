@@ -17,8 +17,8 @@ export interface GetAdjustedCoordinatesParams
   extends Pick<PopupRendererProps, "align"> {
   parsedCoordinates: AlignmentPosition[];
   startIndex: number;
-  popupRect?: DOMRect;
-  targetRect?: DOMRect;
+  popupElm: HTMLElement;
+  targetElm: HTMLElement;
   offset?: number;
 }
 

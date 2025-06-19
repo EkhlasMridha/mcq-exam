@@ -38,15 +38,21 @@ export function parsePositionArrayToCoordinateOder(
 export const getAdjustedCoordinates = ({
   parsedCoordinates,
   startIndex = 0,
-  popupRect,
-  targetRect,
+  popupElm,
+  targetElm,
   align,
   offset = 0,
 }: GetAdjustedCoordinatesParams): Coordinate => {
-  const { height: windowHeight = 0, width: windowWidth = 0 } =
-    window?.document?.body?.getBoundingClientRect() || {};
-  const { height = 0, width = 0, x = 0, y = 0 } = targetRect || {};
-  const { height: popupHeight = 0, width: popupWidth = 0 } = popupRect || {};
+  const doc = popupElm?.ownerDocument;
+  const { clientHeight: windowHeight = 0, clientWidth: windowWidth = 0 } =
+    doc.documentElement;
+  const tRect = targetElm.getBoundingClientRect() || {};
+  tRect.x = tRect.x ?? tRect.left;
+  tRect.y = tRect.y ?? tRect.top;
+  const { x = 0, y = 0, height = 0, width = 0 } = tRect;
+
+  const { height: popupHeight = 0, width: popupWidth = 0 } =
+    popupElm.getBoundingClientRect() || {};
 
   if (!parsedCoordinates[startIndex])
     return { y, x, alignment: parsedCoordinates[startIndex] };
@@ -155,8 +161,8 @@ export const getAdjustedCoordinates = ({
   return getAdjustedCoordinates({
     parsedCoordinates,
     startIndex: startIndex + 1,
-    popupRect,
-    targetRect,
+    popupElm,
+    targetElm,
     align,
     offset,
   });

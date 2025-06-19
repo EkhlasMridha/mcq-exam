@@ -1,5 +1,8 @@
+import { Button } from "components/button";
+import { Popup } from "components/popup";
 import { Select } from "components/select";
 import type { DropdownOptionType } from "components/select/types";
+import { TestPopup } from "./test-popup";
 
 export const Dashboard = () => {
   const options: DropdownOptionType<string>[] = [
@@ -73,6 +76,16 @@ export const Dashboard = () => {
         generated Lorem Ipsum is therefore always free from repetition, injected
         humour, or non-characteristic words etc.
       </p>
+      <Popup
+        positions={[
+          [0, 0, 2],
+          [0, 0, 0],
+          [0, 0, 1],
+        ]}
+        popupElm={<TestPopup />}
+      >
+        <Button>Popup</Button>
+      </Popup>
       <p>
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
@@ -128,6 +141,16 @@ export const Dashboard = () => {
         generated Lorem Ipsum is therefore always free from repetition, injected
         humour, or non-characteristic words etc.
       </p>
+      <Popup
+        positions={[
+          [0, 0, 2],
+          [0, 0, 0],
+          [0, 0, 1],
+        ]}
+        popupElm={<TestPopup />}
+      >
+        <Button>Popup</Button>
+      </Popup>
       <p>
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
