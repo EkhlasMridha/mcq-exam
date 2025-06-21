@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import type { ControlProps } from "types/common";
 
 export interface OnAddOptionParams<V extends ValueType> {
@@ -21,6 +21,9 @@ export interface SelectProps<V extends ValueType> extends ControlProps {
   placeholder?: string;
   dropdownPortal?: HTMLElement;
   size?: "small" | "medium" | "large";
+  onAddItem?: (
+    e?: MouseEvent<HTMLButtonElement>
+  ) => Promise<DropdownOptionType<V>>;
 }
 
 export interface DropdownOptionsProps<T extends ValueType>

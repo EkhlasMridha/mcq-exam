@@ -3,6 +3,7 @@ import { Popup } from "components/popup";
 import { Select } from "components/select";
 import type { DropdownOptionType } from "components/select/types";
 import { TestPopup } from "./test-popup";
+import { PlusIcon } from "components/icons/plus-icon";
 
 export const Dashboard = () => {
   const options: DropdownOptionType<string>[] = [
@@ -84,7 +85,7 @@ export const Dashboard = () => {
         ]}
         popupElm={<TestPopup />}
       >
-        <Button>Popup</Button>
+        <Button icon={<PlusIcon />}>Popup</Button>
       </Popup>
       <p>
         There are many variations of passages of Lorem Ipsum available, but the

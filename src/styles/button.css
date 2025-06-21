@@ -124,6 +124,10 @@
   border-radius: var(--border-radius);
 }
 
+.mq-btn-icon > svg {
+  width: auto;
+  aspect-ratio: 1/1;
+}
 .mq-btn.mq-btn-icon {
   gap: 4px;
 }

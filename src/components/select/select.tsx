@@ -1,6 +1,7 @@
+import { usePopupWatch } from "components/hooks/usePopupWatch";
+import { isDom } from "components/popup/utils";
 import {
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
   type FocusEvent,
@@ -10,20 +11,16 @@ import {
 import { createPortal } from "react-dom";
 import { SelectDropdown } from "./dropdown";
 import { useDropdownNavEngine } from "./hooks/useDropdownNavEngine";
+import { SelectContextProvider } from "./hooks/useSelectContext";
 import { useThrottle } from "./hooks/useThrottle";
 import styles from "./select.module.css";
 import type {
-  DropdownCloseReason,
   DropdownOptionType,
   DropdownPlacement,
-  DropdownPosition,
   SelectProps,
   ValueType,
 } from "./types";
 import { calculateDropdownPosition } from "./utils";
-import { isDom } from "components/popup/utils";
-import { usePopupWatch } from "components/hooks/usePopupWatch";
-import { SelectContextProvider } from "./hooks/useSelectContext";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
@@ -36,26 +33,28 @@ export function Select<T extends ValueType>({
   value,
   size = "medium",
   isError,
+  onAddItem,
 }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
-  const openRef = useRef(false);
-  const closeReason = useRef<DropdownCloseReason | null>(null);
-  const dropdownRef = useRef<HTMLUListElement>(null);
   const [isClosing, setIsClosing] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
   const [filteredOptions, setFilteredOptions] = useState(options || []);
-  const [dropdownPosition, setDropdownPosition] = useState<DropdownPosition>();
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const [dropdownContainer, setDropdownContainer] =
-    useState<HTMLUListElement | null>(null);
+    useState<HTMLDivElement | null>(null);
   const [currentPlacement, setCurrentPlacement] =
     useState<DropdownPlacement>("bottom");
-  const previousKeyboardEvent = useRef<string>(null);
-
+  const [selectContainer, setSelectContainer] = useState<HTMLDivElement | null>(
+    null
+  );
   const [selectedItem, setSelectedItem] = useState(value);
+
+  const previousKeyboardEvent = useRef<string>(null);
+  const openRef = useRef(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
   let delayTimer: NodeJS.Timeout;
   const openDelay = 100;
   const closeDelay = 300;
@@ -68,6 +67,13 @@ export function Select<T extends ValueType>({
   const outlineClassNames = [styles.select_container, "mq-input-outline"];
   !!isError && outlineClassNames.unshift("error");
 
+  const setSelectRef = (node: HTMLDivElement) => {
+    if (isDom(node)) {
+      setSelectContainer(node);
+      selectRef.current = node;
+    }
+  };
+
   function isInFocus() {
     return document.activeElement === inputRef.current;
   }
@@ -79,7 +85,7 @@ export function Select<T extends ValueType>({
     onScroll: () => {},
     open: isRendered,
     popup: dropdownContainer,
-    target: selectRef.current,
+    target: selectContainer,
   });
 
   useEffect(() => {
@@ -89,7 +95,7 @@ export function Select<T extends ValueType>({
     }
   }, [isRendered, dropdownContainer]);
 
-  const setDropdownRef = (node: HTMLUListElement) => {
+  const setDropdownRef = (node: HTMLDivElement) => {
     if (isDom(node)) {
       setDropdownContainer(node);
       dropdownRef.current = node;
@@ -112,17 +118,15 @@ export function Select<T extends ValueType>({
     }
   };
 
-  function handleToggleDropdown(
-    open: boolean = false,
-    eventName: "blur" | "toggle" = "toggle"
-  ) {
+  function handleToggleDropdown(open: boolean = false) {
     clearTimeout(delayTimer);
     setIsClosing(!open);
-    eventName !== "blur" && !isInFocus() && inputRef.current?.focus();
+    !isInFocus() && inputRef.current?.focus();
     delayTimer = setTimeout(
       () => {
         setIsOpen(open);
         openRef.current = open;
+
         if (!isRendered) {
           setIsRendered(open);
         } else {
@@ -137,7 +141,16 @@ export function Select<T extends ValueType>({
     event.preventDefault();
     event.stopPropagation();
 
-    handleToggleDropdown(false, "blur");
+    requestAnimationFrame(() => {
+      const activeElm = document.activeElement;
+
+      const isActiveSelect = selectContainer?.contains(activeElm);
+      const isActiveDropdown = dropdownContainer?.contains(activeElm);
+
+      if (!!activeElm && !isActiveDropdown && !isActiveSelect) {
+        handleToggleDropdown(false);
+      }
+    });
   };
 
   const toggleDropdown = (event: MouseEvent<HTMLInputElement>) => {
@@ -187,14 +200,14 @@ export function Select<T extends ValueType>({
   function onSelectItem(item: DropdownOptionType<T>) {
     onChange?.(item?.value);
     setSelectedItem(item.value);
-    console.log(item.value);
-    inputRef.current?.focus();
+
+    !multiple && handleToggleDropdown(false);
   }
 
   const toggleDropdownInternal = (open: boolean) => {
     if (!dropdownRef.current) return;
     if (open) {
-      dropdownRef.current.style.display = "block";
+      dropdownRef.current.style.display = "flex";
       dropdownRef.current.style.pointerEvents = "auto";
       onAlignDropdown();
     } else {
@@ -203,14 +216,24 @@ export function Select<T extends ValueType>({
     }
   };
 
+  const onAddDropdownItem = async (event?: MouseEvent<HTMLButtonElement>) => {
+    const result = await onAddItem?.(event);
+    if (!!result) {
+      setSelectedItem(result?.value);
+      setFilteredOptions((pre) => [...pre, result]);
+    }
+  };
+
   return (
     <SelectContextProvider
       value={{
         isOpen,
         placement: currentPlacement,
+        onAddItem: onAddDropdownItem,
+        onClose: () => handleToggleDropdown(false),
       }}
     >
-      <div className={outlineClassNames.join(" ")} ref={selectRef}>
+      <div className={outlineClassNames.join(" ")} ref={setSelectRef}>
         <input
           ref={inputRef}
           type="text"

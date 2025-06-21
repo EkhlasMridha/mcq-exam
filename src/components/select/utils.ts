@@ -54,7 +54,6 @@ export function calculateDropdownPosition({
     top: () => {
       const topY =
         adjustedTargetY - originalDropdownHeight - offsetAdjustValue - offset;
-      console.log(adjustedTargetY, originalDropdownHeight, targetBorderOffset);
       if (topY < 0) return null;
       return {
         y: topY,
