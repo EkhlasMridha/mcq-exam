@@ -21,11 +21,11 @@ import type {
   ValueType,
 } from "./types";
 import { calculateDropdownPosition } from "./utils";
+import { FocusTrap } from "components/focus-trap";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
   multiple,
-  onAddOption,
   onChange,
   onSearch,
   options,
@@ -119,6 +119,7 @@ export function Select<T extends ValueType>({
   };
 
   function handleToggleDropdown(open: boolean = false) {
+    if (isOpen === open) return;
     clearTimeout(delayTimer);
     setIsClosing(!open);
     !isInFocus() && inputRef.current?.focus();
@@ -233,34 +234,47 @@ export function Select<T extends ValueType>({
         onClose: () => handleToggleDropdown(false),
       }}
     >
-      <div className={outlineClassNames.join(" ")} ref={setSelectRef}>
-        <input
-          ref={inputRef}
-          type="text"
-          placeholder={placeholder}
-          className={inputClassNames}
-          onClick={toggleDropdown}
-          onKeyDown={throttledHandleKeyboardNav}
-          onBlur={handleBlur}
-          role="combobox"
-          aria-haspopup="listbox"
-          aria-expanded={isOpen}
-          aria-controls="custom-select-listbox"
-          aria-autocomplete="list"
-        />
-        {isRendered &&
-          createPortal(
-            <SelectDropdown
-              ref={setDropdownRef}
-              options={options}
-              onSelectItem={onSelectItem}
-              focusIndex={focusedIndex}
-              isClosing={isClosing}
-              value={selectedItem}
-            />,
-            document.body
-          )}
-      </div>
+      <FocusTrap
+        active={isOpen}
+        focusTrapOptions={{
+          allowOutsideClick: true,
+          initialFocus: false,
+          fallbackFocus: () => inputRef.current!,
+          checkCanFocusTrap: async () => {
+            await new Promise((resolve) => setTimeout(resolve, 0));
+          },
+        }}
+        containerElements={[selectRef.current!, dropdownRef.current!]}
+      >
+        <div className={outlineClassNames.join(" ")} ref={setSelectRef}>
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder={placeholder}
+            className={inputClassNames}
+            onClick={toggleDropdown}
+            onKeyDown={throttledHandleKeyboardNav}
+            onBlur={handleBlur}
+            role="combobox"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            aria-controls="custom-select-listbox"
+            aria-autocomplete="list"
+          />
+          {isRendered &&
+            createPortal(
+              <SelectDropdown
+                ref={setDropdownRef}
+                options={options}
+                onSelectItem={onSelectItem}
+                focusIndex={focusedIndex}
+                isClosing={isClosing}
+                value={selectedItem}
+              />,
+              document.body
+            )}
+        </div>
+      </FocusTrap>
     </SelectContextProvider>
   );
 }

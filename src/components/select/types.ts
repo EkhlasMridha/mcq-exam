@@ -1,9 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 import type { ControlProps } from "types/common";
 
-export interface OnAddOptionParams<V extends ValueType> {
-  onSuccess?: (newOption: V) => void;
-}
 export type ValueType = string | number;
 export interface DropdownOptionType<V extends ValueType> {
   label: ReactNode;
@@ -16,7 +13,6 @@ export interface SelectProps<V extends ValueType> extends ControlProps {
   options?: DropdownOptionType<V>[];
   multiple?: boolean;
   onChange?: (value: V) => void;
-  onAddOption?: (params: OnAddOptionParams<V>) => void;
   onSearch?: (searchTerm?: string) => DropdownOptionType<V>;
   placeholder?: string;
   dropdownPortal?: HTMLElement;
