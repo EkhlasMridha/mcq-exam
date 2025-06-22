@@ -1,3 +1,4 @@
+import { Fragment } from "react/jsx-runtime";
 import type { ButtonProps } from "./types";
 
 export const Button = ({
@@ -30,7 +31,9 @@ export const Button = ({
 
   return (
     <button className={flattenedClassNames} {...restProps}>
-      {contents}
+      {contents.map((item, index) => (
+        <Fragment key={index}>{item}</Fragment>
+      ))}
     </button>
   );
 };

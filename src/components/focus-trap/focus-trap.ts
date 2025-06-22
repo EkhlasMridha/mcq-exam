@@ -7,7 +7,7 @@ import {
 import { isFocusable } from "tabbable";
 import type { FocusTrapProps, Maybe } from "./types";
 
-class FocusTrap extends React.Component<FocusTrapProps> {
+export class FocusTrap extends React.Component<FocusTrapProps> {
   static defaultProps = {
     active: true,
     paused: false,
@@ -286,5 +286,3 @@ class FocusTrap extends React.Component<FocusTrapProps> {
     return null;
   }
 }
-
-export { FocusTrap };

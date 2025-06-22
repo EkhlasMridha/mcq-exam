@@ -64,8 +64,8 @@ export function Select<T extends ValueType>({
     `mq-input-${size}`,
     styles.input_container,
   ].join(" ");
-  const outlineClassNames = [styles.select_container, "mq-input-outline"];
-  !!isError && outlineClassNames.unshift("error");
+  const containerClassNames = [styles.select_container, "mq-input-outline"];
+  !!isError && containerClassNames.unshift("error");
 
   const setSelectRef = (node: HTMLDivElement) => {
     if (isDom(node)) {
@@ -144,7 +144,6 @@ export function Select<T extends ValueType>({
 
     requestAnimationFrame(() => {
       const activeElm = document.activeElement;
-
       const isActiveSelect = selectContainer?.contains(activeElm);
       const isActiveDropdown = dropdownContainer?.contains(activeElm);
 
@@ -225,6 +224,10 @@ export function Select<T extends ValueType>({
     }
   };
 
+  const onResetFocusIndex = () => {
+    setFocusedIndex(-1);
+  };
+
   return (
     <SelectContextProvider
       value={{
@@ -246,7 +249,7 @@ export function Select<T extends ValueType>({
         }}
         containerElements={[selectRef.current!, dropdownRef.current!]}
       >
-        <div className={outlineClassNames.join(" ")} ref={setSelectRef}>
+        <div className={containerClassNames.join(" ")} ref={setSelectRef}>
           <input
             ref={inputRef}
             type="text"
@@ -267,11 +270,12 @@ export function Select<T extends ValueType>({
                 ref={setDropdownRef}
                 options={options}
                 onSelectItem={onSelectItem}
+                onRessetFocusIndex={onResetFocusIndex}
                 focusIndex={focusedIndex}
                 isClosing={isClosing}
                 value={selectedItem}
               />,
-              document.body
+              dropdownPortal ?? document.body
             )}
         </div>
       </FocusTrap>

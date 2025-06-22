@@ -1,5 +1,6 @@
 .select_container {
   overflow: visible !important;
+  position: relative;
 }
 .input_container {
   border-radius: var(--border-radius-sm);
@@ -93,6 +94,7 @@
 .select_item[data-disabled="true"] {
   color: var(--gray-500);
   background-color: var(--disabled-bg-color);
+  cursor: default;
 }
 .select_item:hover {
   background-color: var(--gray-100);

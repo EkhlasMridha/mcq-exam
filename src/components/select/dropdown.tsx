@@ -23,6 +23,7 @@ const DropdownWithoutForwardRef = <T extends ValueType>(
     isClosing,
     focusIndex = -1,
     value,
+    onRessetFocusIndex,
   }: DropdownOptionsProps<T>,
   ref: Ref<HTMLDivElement>
 ) => {
@@ -51,8 +52,9 @@ const DropdownWithoutForwardRef = <T extends ValueType>(
     });
   }, [focusIndex]);
 
-  const handleItemClick = (value: DropdownOptionType<T>) => {
-    onSelectItem(value);
+  const handleItemClick = (option: DropdownOptionType<T>) => {
+    if (option?.disabled) return;
+    onSelectItem(option);
   };
 
   const onAddItem = (event: MouseEvent<HTMLButtonElement>) => {
@@ -70,6 +72,7 @@ const DropdownWithoutForwardRef = <T extends ValueType>(
                 key={option.value}
                 id={`option-${option.value}`}
                 role="option"
+                aria-disabled={option?.disabled}
                 className={`${styles.select_item}`}
                 data-value={option?.value}
                 data-disabled={option?.disabled}
@@ -79,6 +82,9 @@ const DropdownWithoutForwardRef = <T extends ValueType>(
                 onMouseDown={(e) => {
                   e.preventDefault();
                   handleItemClick(option);
+                }}
+                onMouseMove={() => {
+                  focusIndex >= 0 && onRessetFocusIndex();
                 }}
               >
                 {option.label}

@@ -28,6 +28,7 @@ export interface DropdownOptionsProps<T extends ValueType>
   isClosing?: boolean;
   focusIndex?: number;
   value?: ValueType;
+  onRessetFocusIndex: () => void;
 }
 export interface DropdownPosition {
   x: number;
