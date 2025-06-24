@@ -4,6 +4,7 @@ import { Select } from "components/select";
 import type { DropdownOptionType } from "components/select/types";
 import { TestPopup } from "./test-popup";
 import { PlusIcon } from "components/icons/plus-icon";
+import { Input } from "components/input";
 
 export const Dashboard = () => {
   const options: DropdownOptionType<string>[] = [
@@ -17,8 +18,9 @@ export const Dashboard = () => {
       disabled: true,
     },
     {
-      label: "Panda",
+      label: "There are many variations of passages of Lorem Ipsum available",
       value: "panda",
+      tooltip: "There are many variations of passages of Lorem Ipsum available",
     },
     {
       label: "Tiger",
@@ -113,8 +115,13 @@ export const Dashboard = () => {
         generated Lorem Ipsum is therefore always free from repetition, injected
         humour, or non-characteristic words etc.
       </p>
-      <div style={{ maxWidth: 250 }}>
-        <Select options={options} />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <div style={{ maxWidth: 250 }}>
+          <Select options={options} disabled />
+        </div>
+        <div style={{ maxWidth: 250 }}>
+          <Input placeholder="Select ..." />
+        </div>
       </div>
       <p>
         There are many variations of passages of Lorem Ipsum available, but the

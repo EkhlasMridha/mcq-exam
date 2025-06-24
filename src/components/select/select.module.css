@@ -1,14 +1,3 @@
-.select_container {
-  overflow: visible !important;
-  position: relative;
-}
-.input_container {
-  border-radius: var(--border-radius-sm);
-}
-.select_container input {
-  width: 100%;
-  box-sizing: border-box;
-}
 .dropdown_select {
   padding: 0;
   margin: 2px 0 0 0;
@@ -90,20 +79,26 @@
   transition: all 0.25s ease-in-out;
   position: relative;
   list-style-type: none;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-sizing: border-box;
 }
 .select_item[data-disabled="true"] {
   color: var(--gray-500);
   background-color: var(--disabled-bg-color);
   cursor: default;
 }
-.select_item:hover {
-  background-color: var(--gray-100);
-}
 .select_item:not(:last-of-type) {
   border-bottom: 1px solid var(--gray-200);
 }
+.select_item:not([data-disabled="true"]):hover,
 .select_item[data-focus="true"] {
-  background-color: var(--primary-100);
+  background-color: var(--primary-50);
+}
+.select_item:not([data-disabled="true"])[data-selected="true"]:hover {
+  background-color: var(--primary-500);
 }
 .select_item[data-focus="true"][data-selected="true"] {
   background-color: var(--primary-400);

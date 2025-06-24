@@ -6,6 +6,7 @@ interface SelectContextProps {
   isOpen?: boolean;
   onAddItem?: (e?: MouseEvent<HTMLButtonElement>) => void;
   onClose: () => void;
+  disabled?: boolean;
 }
 const SelectContext = createContext<SelectContextProps>({ onClose: () => {} });
 export const SelectContextProvider = SelectContext.Provider;

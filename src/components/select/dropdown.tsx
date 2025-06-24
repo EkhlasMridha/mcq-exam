@@ -70,6 +70,7 @@ const DropdownWithoutForwardRef = <T extends ValueType>(
             options?.map((option, index) => (
               <li
                 key={option.value}
+                title={option?.tooltip}
                 id={`option-${option.value}`}
                 role="option"
                 aria-disabled={option?.disabled}

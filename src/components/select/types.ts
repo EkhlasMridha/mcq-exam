@@ -3,7 +3,8 @@ import type { ControlProps } from "types/common";
 
 export type ValueType = string | number;
 export interface DropdownOptionType<V extends ValueType> {
-  label: ReactNode;
+  label: string;
+  tooltip?: string;
   value: V;
   disabled?: boolean;
   extra?: any;
@@ -17,9 +18,14 @@ export interface SelectProps<V extends ValueType> extends ControlProps {
   placeholder?: string;
   dropdownPortal?: HTMLElement;
   size?: "small" | "medium" | "large";
+  openDelay?: number;
+  closeDelay?: number;
   onAddItem?: (
     e?: MouseEvent<HTMLButtonElement>
   ) => Promise<DropdownOptionType<V>>;
+  disabled?: boolean;
+  multipleValueVisbility?: "tag" | "count";
+  name?: string;
 }
 
 export interface DropdownOptionsProps<T extends ValueType>
@@ -27,7 +33,7 @@ export interface DropdownOptionsProps<T extends ValueType>
   onSelectItem: (item: DropdownOptionType<T>) => void;
   isClosing?: boolean;
   focusIndex?: number;
-  value?: ValueType;
+  value?: ValueType | null;
   onRessetFocusIndex: () => void;
 }
 export interface DropdownPosition {
