@@ -15,7 +15,8 @@ import { SelectDropdown } from "./dropdown";
 import { useDropdownNavEngine } from "./hooks/useDropdownNavEngine";
 import { SelectContextProvider } from "./hooks/useSelectContext";
 import { useThrottle } from "./hooks/useThrottle";
-import styles from "./select.module.css";
+import { SelectPlaceHolder } from "./select-placeholder";
+import { SingleValueItem } from "./singlevalue-item";
 import type {
   DropdownOptionType,
   DropdownPlacement,
@@ -23,10 +24,7 @@ import type {
   ValueType,
 } from "./types";
 import { calculateDropdownPosition } from "./utils";
-import { FocusTrap } from "components/focus-trap";
-import { SelectPlaceHolder } from "./select-placeholder";
 import { ValueContainer } from "./value-container";
-import { SingleValueItem } from "./singlevalue-item";
 
 export function Select<T extends ValueType>({
   dropdownPortal,
