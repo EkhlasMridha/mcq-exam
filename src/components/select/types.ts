@@ -1,4 +1,9 @@
-import type { MouseEvent, ReactNode } from "react";
+import type {
+  HTMLInputTypeAttribute,
+  InputHTMLAttributes,
+  MouseEvent,
+  ReactNode,
+} from "react";
 import type { ControlProps } from "types/common";
 
 export type ValueType = string | number;
@@ -9,7 +14,9 @@ export interface DropdownOptionType<V extends ValueType> {
   disabled?: boolean;
   extra?: any;
 }
-export interface SelectProps<V extends ValueType> extends ControlProps {
+export interface SelectProps<V extends ValueType>
+  extends ControlProps,
+    Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "value" | "onChange"> {
   value?: V;
   options?: DropdownOptionType<V>[];
   multiple?: boolean;

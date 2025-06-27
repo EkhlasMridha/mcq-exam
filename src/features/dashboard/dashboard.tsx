@@ -52,7 +52,7 @@ export const Dashboard = () => {
     },
   ];
   return (
-    <div style={{ padding: 12 }}>
+    <div>
       <p>
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
@@ -117,7 +117,7 @@ export const Dashboard = () => {
       </p>
       <div style={{ display: "flex", alignItems: "center" }}>
         <div style={{ maxWidth: 250 }}>
-          <Select options={options} disabled />
+          <Select options={options} />
         </div>
         <div style={{ maxWidth: 250 }}>
           <Input placeholder="Select ..." />

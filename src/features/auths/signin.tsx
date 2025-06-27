@@ -32,11 +32,11 @@ export const SignIn = () => {
   ) => {
     oAuthSignin({ code: codeResponse?.code }).then((res) => {
       storeJwtToken(res);
+      navigate("/");
     });
   };
 
   const onPasswordSignin = (data: any) => {
-    console.log(data);
     passwordSignin(data).then((res) => {
       storeJwtToken(res);
       navigate("/");

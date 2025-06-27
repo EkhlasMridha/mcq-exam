@@ -40,6 +40,7 @@ export function Select<T extends ValueType>({
   closeDelay = 400,
   openDelay = 100,
   disabled,
+  ...restProps
 }: SelectProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [isRendered, setIsRendered] = useState(false);
@@ -306,6 +307,7 @@ export function Select<T extends ValueType>({
           aria-expanded={isOpen}
           aria-controls="custom-select-listbox"
           aria-autocomplete="list"
+          {...restProps}
         />
         {!selectedItem && (
           <SelectPlaceHolder

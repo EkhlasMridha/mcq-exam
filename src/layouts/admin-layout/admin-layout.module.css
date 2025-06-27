@@ -1,0 +1,37 @@
+.layout_container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+.layout_container nav {
+  height: 55px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 8px 1px #2424249c;
+  padding: 0px var(--page-padding-x);
+  background-color: var(--secondary-500);
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.brandlogo_container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 4px 0px;
+  box-sizing: border-box;
+  max-width: max-content;
+}
+.brandlogo_container svg {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+}
+
+.layout_content {
+  flex: 1 1 0%;
+  overflow-y: auto;
+  min-height: 0;
+  padding: var(--page-padding-y) var(--page-padding-x);
+}
