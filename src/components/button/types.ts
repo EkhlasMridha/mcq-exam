@@ -10,6 +10,7 @@ export interface ButtonProps
   variant?: BtnVariant;
   shape?: BtnShapeType;
   icon?: ReactNode;
+  iconPosition?: "start" | "end";
   loading?: boolean;
 }
 

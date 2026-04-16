@@ -4,8 +4,12 @@ body > #root {
   height: 100%;
   margin: 0;
 }
+html {
+  overflow: hidden;
+}
 body {
   box-sizing: border-box;
+  overflow: auto;
 }
 
 .flex {
@@ -47,4 +51,8 @@ body {
 }
 .color-error {
   color: var(--error-500);
+}
+
+.relative {
+  position: relative;
 }

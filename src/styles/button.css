@@ -6,11 +6,12 @@
   justify-content: center;
   font-weight: var(--font-weight);
   box-sizing: border-box;
-  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   user-select: none;
   touch-action: manipulation;
   cursor: pointer;
   border: none;
+  white-space: nowrap;
 }
 
 .mq-btn::before,
@@ -94,7 +95,7 @@
 .mq-btn-ghost:not(:disabled):hover,
 .mq-btn-outline:not(:disabled):hover {
   background-color: #2424240a;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .mq-btn-primary.mq-btn-outline:not(:disabled):focus-visible,
 .mq-btn-primary.mq-btn-outline:not(:disabled):hover {
@@ -123,6 +124,10 @@
   border-radius: var(--border-radius);
 }
 
+.mq-btn-icon > svg {
+  width: auto;
+  aspect-ratio: 1/1;
+}
 .mq-btn.mq-btn-icon {
   gap: 4px;
 }
@@ -174,17 +179,21 @@
 
 .mq-btn.mq-btn-primary:not(:disabled):focus-visible {
   outline: none;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 0 0 1px var(--primary-500), 0 0 10px 0px var(--primary-300);
 }
 .mq-btn.mq-btn-secondary:not(:disabled):focus-visible {
   outline: none;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 0 0 1px var(--secondary-500), 0 0 4px 2px var(--secondary-600);
 }
 .mq-btn.mq-btn-error:not(:disabled):focus-visible {
   outline: none;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 0 0 1px var(--error-500), 0 0 4px 2px var(--error-600);
 }
 .mq-btn.mq-btn-warn:not(:disabled):focus-visible {
   outline: none;
+  transition: all 0.3s ease-in-out;
   box-shadow: 0 0 0 1px var(--warn-500), 0 0 4px 2px var(--warn-600);
 }

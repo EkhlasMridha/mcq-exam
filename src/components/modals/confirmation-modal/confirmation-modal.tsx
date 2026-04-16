@@ -60,7 +60,7 @@ export const ConfirmationModal = (props: ConfirmationModalProps) => {
   };
 
   return (
-    <FocusTrap options={{ allowOutsideClick: true }}>
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
       <div
         role="modal"
         className={classNames}

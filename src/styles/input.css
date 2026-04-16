@@ -15,6 +15,10 @@
   outline: none;
 }
 
+.mq-input::placeholder {
+  color: var(--color-placeholder);
+}
+
 .mq-input-small {
   line-height: 1;
 }

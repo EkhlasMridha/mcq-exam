@@ -58,7 +58,7 @@ export const HeadFootModalTemplate = (props: HeadFootModalTemplateProps) => {
   };
   return (
     <FocusTrap
-      options={{
+      focusTrapOptions={{
         allowOutsideClick: true,
       }}
     >

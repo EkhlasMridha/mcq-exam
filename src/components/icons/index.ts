@@ -6,3 +6,5 @@ export { CloseIcon } from "./close-icon";
 export { WarnIcon } from "./warn-icon";
 export { ErrorIcon } from "./error-icon";
 export { InfoIcon } from "./info-icon";
+export { DropdownIndicatorIcon } from "./dropdown-indicator-icon";
+export {} from "./plus-icon";

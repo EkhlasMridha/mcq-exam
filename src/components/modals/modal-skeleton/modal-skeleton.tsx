@@ -14,7 +14,7 @@ export const ModalSkeleton = ({
   const classNames = ["app-modal", className].join(" ");
 
   return (
-    <FocusTrap options={{ allowOutsideClick: true }}>
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
       <div className={classNames} style={style}>
         {!isValidElement(children)
           ? children
